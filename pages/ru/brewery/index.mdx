@@ -1,0 +1,862 @@
+---
+title: Алкоголь
+description: Варить алкоголь в майнкрафте? Теперь это возможно.
+category: gameplay
+disabledin: false
+---
+
+### Использование
+В отличие от ванильного Майнкрафта, это не так просто, как добавитьингредиент в пивоварню и ждать, пока он закончится. В зависимости от рецептавесь процесс может быть сложным и трудоемким. Некоторые рецепты могутпотребовать высокой точности, когда дело доходит до ингредиентов или любогодругого этапа процесса. Если один шаг был недостаточно хорош, качество зельийможет пострадать, что приведет к побочным эффектам, таким как плохойалкоголь и другие токсины.
+Эта новая сложность приготовления хорошего напитка имеет смысл только в том случае, если игроки не знают точных рецептов хотя бы более ценных зелий (например, рома). Это повышает ценность высококачественных зелий, а также способствует экспериментам и совершенствованию процесса варки.
+В зависимости от рецепта, некоторые шаги могут не потребоваться, следующая инструкция описывает общую процедуру заваривания.
+
+### Ферментация
+Первый этап заключается в ферментации свежих ингредиентов.
+1. Поставьте котел на огонь или другой источник тепла
+2. Наполните его водой
+3. Добавьте ингредиенты, щелкнув правой кнопкой мыши
+4. Подождите несколько минут, пока они бродят
+5. Заполните стеклянные бутылки
+
+![Котёл](brewery/brew1.png)
+
+### Дистилляция
+Некоторые рецепты не требуют дистилляции.
+1. Поставьте бутылку с закваской в варочную стойку
+2. Поместите пыль из светящегося камня в качестве фильтра сверху на подставку для заваривания (фильтр не будет израсходован)
+
+![Зельеварка](brewery/brew2.png)
+
+### Выдержка
+Маленькая бочка - 9 слотов
+Используйте 8 деревянных лестниц, чтобы создать форму бочки.
+Поставьте Знак в правом нижнем углу и напишите "Barrel" в верхней строке:
+
+![Маленькая бочка](brewery/brew3.png)
+
+Большая бочка - 27 слотов
+Используйте 5 заборов, 16 деревянных лестниц и 18 деревянных досок, чтобы создать форму бочки.
+Прикрепите кран (ограждение) и табличку с надписью "Barrel":
+
+![Большая бочка](brewery/brew4.png)
+
+<strong>Чтобы удалить бочку, просто сломайте табличку.</strong>
+Откройте бочку, нажав на нее.
+1. Поставьте бутылки в Бочки для выдержки.
+2. За каждый день Minecraft пиво будет выдерживаться год.
+3. В зависимости от рецепта, тип древесины, используемой для изготовления бочки, может повлиять на качество выдержанного пива.
+4. Бочка для Minecraft всегда изготавливается из дерева типа дуба.
+
+### Пить
+
+Количество алкоголя будет применено к игроку при выпивке. В зависимости от качества это может иметь разные последствия.
+1. Возможно, игрок больше не сможет нормально ходить, он будет плестись, что делает практически невозможным ходить прямо
+2. Возникают такие эффекты, как слепота, спутанность сознания, отравление и т. д.
+3. Чат будет изменен в зависимости от степени опьянения, многие вещи, которые пишут игроки, могут быть непонятными, иногда это кажется бессмысленным
+4. Алкоголь особенно крепкий, он может оказывать ядовитое действие
+
+### Как отрезветь
+После употребления требуется некоторое время, пока алкоголь полностью не исчезнет. В течение этого времени уровень алкоголя неуклонно снижается. Так-же вы можете пить очень много молока или есть много хлеба и быстрее отрезвеете.
+
+## Рецепты
+
+<div className="overflow-x-auto max-w-[310px] sm:max-w-full">
+<table>
+  <thead>
+  <tr>
+      <th>Рецепт</th>
+      <th>Ингредиенты</th>
+      <th>Время варки</th>
+      <th>Дистилляция</th>
+      <th>Выдержка/Древесина</th>
+      <th>Алк</th>
+      <th>Эффекты</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+      <td>Мет</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gunpowder.png" className="w-4 h-4 object-cover object-top inline-block" /> Порох<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/iron_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек железа<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц</td>
+      <td>5</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Скорость, Регенерация, Слепота</td>
+  </tr>
+  <tr>
+      <td>Синий мет</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/amethyst_shard.png" className="w-4 h-4 object-cover object-top inline-block" /> Осколок аметиста<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gunpowder.png" className="w-4 h-4 object-cover object-top inline-block" /> Порох<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/iron_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек железа<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/lapis_lazuli.png" className="w-4 h-4 object-cover object-top inline-block" /> Лазурит</td>
+      <td>5</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Скорость, Регенерация, Левитация, Тошнота</td>
+  </tr>
+  <tr>
+      <td>Дурной мет</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gunpowder.png" className="w-4 h-4 object-cover object-top inline-block" /> Порох<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/iron_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек железа<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц</td>
+      <td>7</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Слепота, Слабость, Тошнота</td>
+  </tr>
+  <tr>
+      <td>Пшеничное пиво</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>Нет</td>
+      <td>2 дня (Береза)</td>
+      <td>5</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Пиво</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>Нет</td>
+      <td>3 дня (Любое)</td>
+      <td>6</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Темное пиво</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>Нет</td>
+      <td>8 дней (Темный дуб)</td>
+      <td>7</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Красное вино</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>10</td>
+      <td>Нет</td>
+      <td>20 дней (Любое)</td>
+      <td>8</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Мид</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>7</td>
+      <td>Нет</td>
+      <td>Нет (Дуб)</td>
+      <td>9</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Яблочная медовуха</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоки<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница</td>
+      <td>13</td>
+      <td>Нет</td>
+      <td>4 дня (Дуб)</td>
+      <td>11</td>
+      <td>Дыхание под водой</td>
+  </tr>
+  <tr>
+      <td>Яблочный сидр</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоки<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>7</td>
+      <td>Нет</td>
+      <td>3 дня (Любое)</td>
+      <td>9</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Яблочный ликер / Кальвадос</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоки<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>16</td>
+      <td>3 раза</td>
+      <td>6 дней (Акация)</td>
+      <td>14</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Виски / Шотландский виски</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>20</td>
+      <td>2 раза</td>
+      <td>18 дней (Ель)</td>
+      <td>26</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Пряный ром / Пиратский ром</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>12</td>
+      <td>2 раза</td>
+      <td>14 дней (Дуб)</td>
+      <td>30</td>
+      <td>Огнестойкость, Отравление</td>
+  </tr>
+  <tr>
+      <td>Водка / Русская водка</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картошка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>20</td>
+      <td>Слабость, Отравление</td>
+  </tr>
+  <tr>
+      <td>Водка с грибами</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картошка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/red_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Красные грибы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/brown_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Обычные грибы</td>
+      <td>18</td>
+      <td>5 раз</td>
+      <td>Нет</td>
+      <td>18</td>
+      <td>Слабость, Слепота, Тошнота, Ночное зрение</td>
+  </tr>
+  <tr>
+      <td>Джин / Старый Джин</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/blue_orchid.png" className="w-4 h-4 object-cover object-top inline-block" /> Синяя орхидея<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоко</td>
+      <td>16</td>
+      <td>2 раза</td>
+      <td>Нет</td>
+      <td>20</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Текила / Текила анехо</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/cactus_side.png" className="w-4 h-4 object-cover object-top inline-block" /> Кактус<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>2 раза</td>
+      <td>12 дней (Береза)</td>
+      <td>20</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Абсент / Крепкий абсент</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды</td>
+      <td>20</td>
+      <td>6 раз</td>
+      <td>Нет</td>
+      <td>42</td>
+      <td>Отравление</td>
+  </tr>
+  <tr>
+      <td>Зеленый абсент / Ярко-зеленый абсент</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/lime_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Лаймовый краситель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/poisonous_potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Отравленная картошка</td>
+      <td>20</td>
+      <td>6 раз</td>
+      <td>Нет</td>
+      <td>46</td>
+      <td>Отравление, Урон, Ночное зрение</td>
+  </tr>
+  <tr>
+      <td>Огуречный рассол</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sea_pickle.png" className="w-4 h-4 object-cover object-top inline-block" /> Морской огурец<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава</td>
+      <td>4</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>-20</td>
+      <td>Регенерация</td>
+  </tr>
+  <tr>
+      <td>Чайный гриб</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/mushroom_stem.png" className="w-4 h-4 object-cover object-top inline-block" /> Ножка гриба<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/oak_leaves.png" className="w-4 h-4 object-cover object-top inline-block" /> Дубовые листья<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>8</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Регенерация</td>
+  </tr>
+  <tr>
+      <td>Портвейн / Анархический портвейн</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>3 раза</td>
+      <td>10 дней (Любое)</td>
+      <td>30</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Бурбон / Классный бурбон</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек золота<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/poisonous_potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Отравленная картошка</td>
+      <td>25</td>
+      <td>6 раз</td>
+      <td>20 дней (Любое)</td>
+      <td>50</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Крепкое французское вино</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>10</td>
+      <td>Нет</td>
+      <td>10 дней (Любое)</td>
+      <td>20</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Ягодный чай / Японский чай</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/kelp.png" className="w-4 h-4 object-cover object-top inline-block" /> Ламинария<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/seagrass.png" className="w-4 h-4 object-cover object-top inline-block" /> Морская трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава</td>
+      <td>8</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Регенерация, Скорость</td>
+  </tr>
+  <tr>
+      <td>Молочное пиво</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>3 дня (Любое)</td>
+      <td>10</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Шнапс / Качественный Шнапс</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>10</td>
+      <td>2 раза</td>
+      <td>Нет</td>
+      <td>17</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Голденрот / Блестящий Голденрот</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек золота<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды</td>
+      <td>10</td>
+      <td>2 раза</td>
+      <td>Нет</td>
+      <td>24</td>
+      <td>Отравление</td>
+  </tr>
+  <tr>
+      <td>Квас / Вятский квас</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/bread.png" className="w-4 h-4 object-cover object-top inline-block" /> Хлеб<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/brown_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Коричневый гриб<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>4 дня (Любое)</td>
+      <td>1</td>
+      <td>Регенерация</td>
+  </tr>
+  <tr>
+      <td>Шоколадный ликер / Балдежный шоколадный ликер</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картошка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>16</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>26</td>
+      <td>Регенерация</td>
+  </tr>
+  <tr>
+      <td>Эспрессо / Качественный эспрессо</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>4</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>-10</td>
+      <td>Скорость</td>
+  </tr>
+  <tr>
+      <td>Коньяк / Настоявшийся Коньяк</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/oak_sapling.png" className="w-4 h-4 object-cover object-top inline-block" /> Дубовый саженец<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>8 дней (Ель)</td>
+      <td>46</td>
+      <td>Регенерация, Отравление</td>
+  </tr>
+  <tr>
+      <td>Картофельный суп</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картошка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/carrot.png" className="w-4 h-4 object-cover object-top inline-block" /> Морковь</td>
+      <td>3</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Лечение</td>
+  </tr>
+  <tr>
+      <td>Серная кислота / Качественная серная кислота</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/spider_eye.png" className="w-4 h-4 object-cover object-top inline-block" /> Паучий глаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/wither_rose.png" className="w-4 h-4 object-cover object-top inline-block" /> Роза визера<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/slime_ball.png" className="w-4 h-4 object-cover object-top inline-block" /> Слизь<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц</td>
+      <td>4</td>
+      <td>1 раз</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Отравление (сильное)</td>
+  </tr>
+  <tr>
+      <td>Ацетон / Жёсткая ебанина</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/nautilus_shell.png" className="w-4 h-4 object-cover object-top inline-block" /> Раковина наутилуса<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/coal_block.png" className="w-4 h-4 object-cover object-top inline-block" /> Угольный блок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gunpowder.png" className="w-4 h-4 object-cover object-top inline-block" /> Порох<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/slime_ball.png" className="w-4 h-4 object-cover object-top inline-block" /> Слизь<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц</td>
+      <td>60</td>
+      <td>6 раз</td>
+      <td>Нет</td>
+      <td>100</td>
+      <td>Отравление</td>
+  </tr>
+  <tr>
+      <td>Орлан / Конченая ебанина</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/emerald.png" className="w-4 h-4 object-cover object-top inline-block" /> Изумруд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gunpowder.png" className="w-4 h-4 object-cover object-top inline-block" /> Порох<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц</td>
+      <td>60</td>
+      <td>6 раз</td>
+      <td>20 дней (Любое)</td>
+      <td>100</td>
+      <td>Отравление</td>
+  </tr>
+  <tr>
+      <td>Кофе / Крепкий кофе</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока</td>
+      <td>2</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>-6</td>
+      <td>Регенерация, Скорость</td>
+  </tr>
+  <tr>
+      <td>Гоголь-Моголь / Адвокаат</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/egg.png" className="w-4 h-4 object-cover object-top inline-block" /> Яйца<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока</td>
+      <td>4</td>
+      <td>Нет</td>
+      <td>3 дня (Любое)</td>
+      <td>10</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Ночной Альт-Сити</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/end_stone.png" className="w-4 h-4 object-cover object-top inline-block" /> Эндерняк<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/rotten_flesh.png" className="w-4 h-4 object-cover object-top inline-block" /> Гнилая плоть<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cake.png" className="w-4 h-4 object-cover object-top inline-block" /> Торт<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картошка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/purple_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Фиолетовый краситель</td>
+      <td>21</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>45</td>
+      <td>Огнестойкость</td>
+  </tr>
+  <tr>
+      <td>Пиво Хэвирона (Пиво Админов)</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/ghast_tear.png" className="w-4 h-4 object-cover object-top inline-block" /> Слеза гаста<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/crossbow_standby.png" className="w-4 h-4 object-cover object-top inline-block" /> Арбалет<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/firework_star.png" className="w-4 h-4 object-cover object-top inline-block" /> Пиротехническая звезда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз</td>
+      <td>120</td>
+      <td>6 раз</td>
+      <td>Нет</td>
+      <td>100</td>
+      <td>Слепота, Иссушение, Свечение, Медленное падение, Удача</td>
+  </tr>
+  <tr>
+      <td>Креативный отрезвитель</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/bedrock.png" className="w-4 h-4 object-cover object-top inline-block" /> Бедрок</td>
+      <td>5</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>-100</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Дайкири / Дайкири Спешл</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/ice.png" className="w-4 h-4 object-cover object-top inline-block" /> Лёд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник</td>
+      <td>16</td>
+      <td>2 раза</td>
+      <td>5 дней (Любое)</td>
+      <td>35</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Энергетик (Drive/Gorilla/Flash)</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/moss_block.png" className="w-4 h-4 object-cover object-top inline-block" /> Блок мха<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/redstone.png" className="w-4 h-4 object-cover object-top inline-block" /> Редстоун</td>
+      <td>10</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Спешка</td>
+  </tr>
+  <tr>
+      <td>Чай Урумча</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/bread.png" className="w-4 h-4 object-cover object-top inline-block" /> Хлеб<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/white_bed.png" className="w-4 h-4 object-cover object-top inline-block" /> Белая кровать<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока</td>
+      <td>5</td>
+      <td>6 раз</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Удача, Слабость</td>
+  </tr>
+  <tr>
+      <td>Рево (Серое Рево)</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/redstone.png" className="w-4 h-4 object-cover object-top inline-block" /> Редстоун<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/red_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Красный краситель</td>
+      <td>20</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Тьма, Доп. здоровье</td>
+  </tr>
+  <tr>
+      <td>Балтика</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/iron_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек железа<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз</td>
+      <td>5</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>55</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Самогон / Дедовский самогон</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоко<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница</td>
+      <td>20</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>60</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Сибирская водка / Алмазная сибирская водка</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картофель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/snow.png" className="w-4 h-4 object-cover object-top inline-block" /> Блок снега<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/ice.png" className="w-4 h-4 object-cover object-top inline-block" /> Плотный лёд</td>
+      <td>18</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>45</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Мохито / Изумрудное Мохито</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/emerald.png" className="w-4 h-4 object-cover object-top inline-block" /> Изумруд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/fern.png" className="w-4 h-4 object-cover object-top inline-block" /> Папоротник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/lime_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Лаймовый краситель</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>24</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Пунш / Дорогой Пунш</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоко<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/melon_slice.png" className="w-4 h-4 object-cover object-top inline-block" /> Ломтик арбуза</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>32</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Золотая Водка / Легендарная Золотая Водка</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картофель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек золота<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды</td>
+      <td>18</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>20</td>
+      <td>Слабость, Отравление</td>
+  </tr>
+  <tr>
+      <td>Медовый Раф / Высшее общество</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Минералка / Святая Минералочка</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник</td>
+      <td>8</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Кокаин / Подозрительный порошок</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/amethyst_shard.png" className="w-4 h-4 object-cover object-top inline-block" /> Осколок аметиста<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/prismarine_shard.png" className="w-4 h-4 object-cover object-top inline-block" /> Осколок призмарина<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/snow.png" className="w-4 h-4 object-cover object-top inline-block" /> Блок снега<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/quartz.png" className="w-4 h-4 object-cover object-top inline-block" /> Кварц</td>
+      <td>20</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Слабость, Отравление, Тьма</td>
+  </tr>
+  <tr>
+      <td>Шампанское / Блестящее Шампанское</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/apple.png" className="w-4 h-4 object-cover object-top inline-block" /> Яблоко<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек золота<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды</td>
+      <td>5</td>
+      <td>1 раз</td>
+      <td>2 дня (Дуб)</td>
+      <td>20</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Бренди / Высококачественный Бренди</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/cactus_side.png" className="w-4 h-4 object-cover object-top inline-block" /> Кактус<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды</td>
+      <td>10</td>
+      <td>1 раз</td>
+      <td>8 дней (Ель)</td>
+      <td>40</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Медовое вино / Необычайно вкусное Медовое вино</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>15</td>
+      <td>3 раза</td>
+      <td>10 дней (Любое)</td>
+      <td>25</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Медовое пиво / Золотое Медовое пиво</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_ingot.png" className="w-4 h-4 object-cover object-top inline-block" /> Золотой слиток<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник</td>
+      <td>10</td>
+      <td>Нет</td>
+      <td>5 дней (Тропическое)</td>
+      <td>5</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Английский мёд / GREAT ENGLISH HONEY</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/emerald.png" className="w-4 h-4 object-cover object-top inline-block" /> Изумруд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/lapis_lazuli.png" className="w-4 h-4 object-cover object-top inline-block" /> Лазурит<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/iron_ingot.png" className="w-4 h-4 object-cover object-top inline-block" /> Железный слиток<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_ingot.png" className="w-4 h-4 object-cover object-top inline-block" /> Золотой слиток<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз</td>
+      <td>10</td>
+      <td>Нет</td>
+      <td>5 дней (Тропическое)</td>
+      <td>5</td>
+      <td>Нет</td>
+  </tr>
+  <tr>
+      <td>Тёмный Коктейль / Тьма на Заказ</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sculk_catalyst_side.png" className="w-4 h-4 object-cover object-top inline-block" /> Скалк-катализатор<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sculk_shrieker_side.png" className="w-4 h-4 object-cover object-top inline-block" /> Скалк-крикун<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sculk_sensor_side.png" className="w-4 h-4 object-cover object-top inline-block" /> Акустический датчик<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sculk_vein.png" className="w-4 h-4 object-cover object-top inline-block" /> Скалковая жила<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sculk.png" className="w-4 h-4 object-cover object-top inline-block" /> Скалк<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/netherite_scrap.png" className="w-4 h-4 object-cover object-top inline-block" /> Обломок незерита</td>
+      <td>1500</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Тьма, Сопротивление, Замедление, Слепота</td>
+  </tr>
+  <tr>
+      <td>Jägermeister / Травяной ликёр</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/moss_block.png" className="w-4 h-4 object-cover object-top inline-block" /> Блок мха<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/fern.png" className="w-4 h-4 object-cover object-top inline-block" /> Папоротник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/dandelion.png" className="w-4 h-4 object-cover object-top inline-block" /> Одуванчик<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/poppy.png" className="w-4 h-4 object-cover object-top inline-block" /> Мак<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/cornflower.png" className="w-4 h-4 object-cover object-top inline-block" /> Василёк<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/crimson_roots.png" className="w-4 h-4 object-cover object-top inline-block" /> Багровые корни<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/vine.png" className="w-4 h-4 object-cover object-top inline-block" /> Лианы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/small_dripleaf_top.png" className="w-4 h-4 object-cover object-top inline-block" /> Маленький твердолист<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/lily_pad.png" className="w-4 h-4 object-cover object-top inline-block" /> Кувшинка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>60</td>
+      <td>Нет</td>
+      <td>3 дня (Ель)</td>
+      <td>35</td>
+      <td>Сила, Тошнота, Скорость, Голод</td>
+  </tr>
+  <tr>
+      <td>Мох</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/moss_block.png" className="w-4 h-4 object-cover object-top inline-block" /> Блок мха<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/short_grass.png" className="w-4 h-4 object-cover object-top inline-block" /> Трава</td>
+      <td>5</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>5</td>
+      <td>Регенерация, Насыщение</td>
+  </tr>
+  <tr>
+      <td>Кровь / Чистая Кровь</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/rotten_flesh.png" className="w-4 h-4 object-cover object-top inline-block" /> Гнилая плоть<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/redstone.png" className="w-4 h-4 object-cover object-top inline-block" /> Редстоун</td>
+      <td>60</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>25</td>
+      <td>Голод, Сила, Регенерация</td>
+  </tr>
+  <tr>
+      <td>Сердце Хранителя</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Тёмный Коктейль<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Настойка из Нароста<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Кровь<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/nether_star.png" className="w-4 h-4 object-cover object-top inline-block" /> Звезда Незера</td>
+      <td>300</td>
+      <td>5 раз</td>
+      <td>Нет</td>
+      <td>-10</td>
+      <td>Сила, Сопротивление, Регенерация, Доп. здоровье, Тьма...</td>
+  </tr>
+  <tr>
+      <td>ХвОЙная Минералочка</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/spruce_leaves.png" className="w-4 h-4 object-cover object-top inline-block" /> Еловые листья<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница</td>
+      <td>10</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>3</td>
+      <td>Огнестойкость, Поглощение</td>
+  </tr>
+  <tr>
+      <td>Огненная кровь / Пылающая кровь</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/rotten_flesh.png" className="w-4 h-4 object-cover object-top inline-block" /> Гнилая плоть<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/fire_charge.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный заряд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/lava_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро лавы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/orange_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Оранжевый краситель</td>
+      <td>60</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Сила, Регенерация</td>
+  </tr>
+  <tr>
+      <td>Последний Шанс</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Сияние на Заказ<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Настойка из Нароста<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненная кровь<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/red_stained_glass.png" className="w-4 h-4 object-cover object-top inline-block" /> Красное стекло<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/nether_star.png" className="w-4 h-4 object-cover object-top inline-block" /> Звезда Незера</td>
+      <td>300</td>
+      <td>5 раз</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Сила, Сопротивление, Регенерация, Скорость</td>
+  </tr>
+  <tr>
+      <td>Сияние на Заказ</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glowstone_dust.png" className="w-4 h-4 object-cover object-top inline-block" /> Пыль светящегося камня<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/glowstone.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящийся камень<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glow_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Светящиеся ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_ingot.png" className="w-4 h-4 object-cover object-top inline-block" /> Золотой слиток</td>
+      <td>30</td>
+      <td>120 раз</td>
+      <td>Нет</td>
+      <td>15</td>
+      <td>Спешка, Сила, Огнестойкость, Доп. здоровье</td>
+  </tr>
+  <tr>
+      <td>Настойка из Нароста</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/nether_wart.png" className="w-4 h-4 object-cover object-top inline-block" /> Незерский нарост<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/red_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Красный краситель</td>
+      <td>10</td>
+      <td>1 раз</td>
+      <td>Нет</td>
+      <td>15</td>
+      <td>Голод</td>
+  </tr>
+  <tr>
+      <td>Розовый нектар</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/pink_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Розовый краситель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/melon_slice.png" className="w-4 h-4 object-cover object-top inline-block" /> Ломтик арбуза<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока</td>
+      <td>8</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>2</td>
+      <td>Регенерация, Скорость, Насыщение, Прыгучесть, Доп. здоровье</td>
+  </tr>
+  <tr>
+      <td>Гласиал Варден / Дыхание Хранителя</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Тёмный Коктейль<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> ХвОЙная Минералочка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/packed_ice.png" className="w-4 h-4 object-cover object-top inline-block" /> Плотный лёд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/blue_ice.png" className="w-4 h-4 object-cover object-top inline-block" /> Синий лёд<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/sculk.png" className="w-4 h-4 object-cover object-top inline-block" /> Скалк<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/snow.png" className="w-4 h-4 object-cover object-top inline-block" /> Блок снега<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/powder_snow_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро порошкового снега</td>
+      <td>90</td>
+      <td>3 раза</td>
+      <td>13 дней (Ель)</td>
+      <td>30</td>
+      <td>Сопротивление, Замедление, Тьма, Доп. здоровье, Огнестойкость</td>
+  </tr>
+  <tr>
+      <td>Нектар Края / Дракон Края</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/end_stone.png" className="w-4 h-4 object-cover object-top inline-block" /> Эндерняк<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/ender_pearl.png" className="w-4 h-4 object-cover object-top inline-block" /> Эндер-жемчуг<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/ender_eye.png" className="w-4 h-4 object-cover object-top inline-block" /> Глаз Эндера<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/chorus_flower.png" className="w-4 h-4 object-cover object-top inline-block" /> Цветок хоруса<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/dragon_breath.png" className="w-4 h-4 object-cover object-top inline-block" /> Дыхание дракона<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/nether_star.png" className="w-4 h-4 object-cover object-top inline-block" /> Звезда Незера</td>
+      <td>120</td>
+      <td>4 раза</td>
+      <td>20 дней (Темный дуб)</td>
+      <td>20</td>
+      <td>Левитация, Медленное падение, Сила, Сопротивление, Регенерация, Доп. здоровье</td>
+  </tr>
+  <tr>
+      <td>Королевские розы</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/rose_bush_top.png" className="w-4 h-4 object-cover object-top inline-block" /> Куст роз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/pink_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Розовый краситель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/red_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Красный краситель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_nugget.png" className="w-4 h-4 object-cover object-top inline-block" /> Кусочек золота<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда</td>
+      <td>25</td>
+      <td>1 раз</td>
+      <td>3 дня (Дуб)</td>
+      <td>18</td>
+      <td>Регенерация, Удача, Насыщение, Доп. здоровье, Отравление</td>
+  </tr>
+  <tr>
+      <td>Молочко Акеми / Грудное молоко Akemi</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gold_ingot.png" className="w-4 h-4 object-cover object-top inline-block" /> Золотой слиток<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/egg.png" className="w-4 h-4 object-cover object-top inline-block" /> Яйцо</td>
+      <td>15</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>3</td>
+      <td>Поглощение, Медленное падение</td>
+  </tr>
+  <tr>
+      <td>Яд Короля Крыс / Крысиный яд</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/fermented_spider_eye.png" className="w-4 h-4 object-cover object-top inline-block" /> Ферментированный паучий глаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/spider_eye.png" className="w-4 h-4 object-cover object-top inline-block" /> Паучий глаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/poisonous_potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Ядовитый картофель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/red_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Красный гриб<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/rotten_flesh.png" className="w-4 h-4 object-cover object-top inline-block" /> Гнилая плоть<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/bone_meal.png" className="w-4 h-4 object-cover object-top inline-block" /> Костная мука<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар</td>
+      <td>30</td>
+      <td>2 раза</td>
+      <td>Нет</td>
+      <td>5</td>
+      <td>Отравление, Иссушение, Тошнота, Слепота, Слабость</td>
+  </tr>
+  <tr>
+      <td>Медовая Перцовочка</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картофель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/red_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Красный гриб<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/gunpowder.png" className="w-4 h-4 object-cover object-top inline-block" /> Порох</td>
+      <td>20</td>
+      <td>3 раза</td>
+      <td>6 дней (Ель)</td>
+      <td>35</td>
+      <td>Огнестойкость, Сила, Регенерация, Отравление, Слабость</td>
+  </tr>
+  <tr>
+      <td>Старый Мельник</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/bread.png" className="w-4 h-4 object-cover object-top inline-block" /> Хлеб<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/brown_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Коричневый гриб</td>
+      <td>25</td>
+      <td>Нет</td>
+      <td>3 дня (Дуб)</td>
+      <td>8</td>
+      <td>Насыщение, Регенерация, Спешка, Отравление</td>
+  </tr>
+  <tr>
+      <td>Медицинский спирт 96%</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Картофель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник</td>
+      <td>40</td>
+      <td>5 раз</td>
+      <td>Нет</td>
+      <td>96</td>
+      <td>Отравление, Слепота, Замедление, Слабость, Тошнота, Голод</td>
+  </tr>
+  <tr>
+      <td>Жидкая боль</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/yellow_dye.png" className="w-4 h-4 object-cover object-top inline-block" /> Желтый краситель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/spider_eye.png" className="w-4 h-4 object-cover object-top inline-block" /> Паучий глаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/fermented_spider_eye.png" className="w-4 h-4 object-cover object-top inline-block" /> Ферм. паучий глаз<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/poisonous_potato.png" className="w-4 h-4 object-cover object-top inline-block" /> Ядовитый картофель<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/rotten_flesh.png" className="w-4 h-4 object-cover object-top inline-block" /> Гнилая плоть<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/bone_meal.png" className="w-4 h-4 object-cover object-top inline-block" /> Костная мука<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/red_mushroom.png" className="w-4 h-4 object-cover object-top inline-block" /> Красный гриб</td>
+      <td>50</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>30</td>
+      <td>Иссушение, Отравление, Замедление, Слабость, Слепота, Тошнота, Голод</td>
+  </tr>
+  <tr>
+      <td>Зелье бесконечного тортика</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/egg.png" className="w-4 h-4 object-cover object-top inline-block" /> Яйцо<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cocoa_beans.png" className="w-4 h-4 object-cover object-top inline-block" /> Какао-бобы<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/cake.png" className="w-4 h-4 object-cover object-top inline-block" /> Торт</td>
+      <td>15</td>
+      <td>3 раза</td>
+      <td>Нет</td>
+      <td>2</td>
+      <td>Насыщение, Регенерация, Скорость</td>
+  </tr>
+  <tr>
+      <td>Коровье бешенство</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/bone_meal.png" className="w-4 h-4 object-cover object-top inline-block" /> Костная мука<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/rotten_flesh.png" className="w-4 h-4 object-cover object-top inline-block" /> Гнилая плоть<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/wheat.png" className="w-4 h-4 object-cover object-top inline-block" /> Пшеница</td>
+      <td>60</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Замедление, Слабость, Слепота, Тошнота, Голод (длительные)</td>
+  </tr>
+  <tr>
+      <td>Шипучий лимонад</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/melon_slice.png" className="w-4 h-4 object-cover object-top inline-block" /> Ломтик дыни<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glowstone_dust.png" className="w-4 h-4 object-cover object-top inline-block" /> Пыль светящегося камня<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/block/ice.png" className="w-4 h-4 object-cover object-top inline-block" /> Лёд</td>
+      <td>5</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Насыщение, Скорость, Регенерация</td>
+  </tr>
+  <tr>
+      <td>Чай О лонг / Чай Улун</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Водка<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/potion.png" className="w-4 h-4 object-cover object-top inline-block" /> Виски<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/melon_slice.png" className="w-4 h-4 object-cover object-top inline-block" /> Ломтик дыни<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/blaze_powder.png" className="w-4 h-4 object-cover object-top inline-block" /> Огненный порошок</td>
+      <td>5</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>40</td>
+      <td>Сила, Сопротивление, Тошнота, Слепота, Замедление, Скорость</td>
+  </tr>
+  <tr>
+      <td>Клубничный Милкис</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glowstone_dust.png" className="w-4 h-4 object-cover object-top inline-block" /> Пыль светящегося камня<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда</td>
+      <td>6</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>1</td>
+      <td>Насыщение, Скорость, Регенерация</td>
+  </tr>
+  <tr>
+      <td>Вольный ветер / Порыв души</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/feather.png" className="w-4 h-4 object-cover object-top inline-block" /> Перо<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/ghast_tear.png" className="w-4 h-4 object-cover object-top inline-block" /> Слеза гаста<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/glowstone_dust.png" className="w-4 h-4 object-cover object-top inline-block" /> Пыль светящегося камня<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/phantom_membrane.png" className="w-4 h-4 object-cover object-top inline-block" /> Мембрана фантома</td>
+      <td>20</td>
+      <td>1 раз</td>
+      <td>Нет</td>
+      <td>5</td>
+      <td>Медленное падение, Левитация, Скорость</td>
+  </tr>
+  <tr>
+      <td>Молочко Дисконектед / Отключённая нежность</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/milk_bucket.png" className="w-4 h-4 object-cover object-top inline-block" /> Ведро молока<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/honey_bottle.png" className="w-4 h-4 object-cover object-top inline-block" /> Бутылочка мёда<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar_cane.png" className="w-4 h-4 object-cover object-top inline-block" /> Тростник<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sweet_berries.png" className="w-4 h-4 object-cover object-top inline-block" /> Сладкие ягоды<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/phantom_membrane.png" className="w-4 h-4 object-cover object-top inline-block" /> Мембрана фантома</td>
+      <td>12</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>4</td>
+      <td>Регенерация, Насыщение, Скорость, Удача, Замедление, Тошнота</td>
+  </tr>
+  <tr>
+      <td>С 1 апреля! (Наёбка)</td>
+      <td><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/redstone.png" className="w-4 h-4 object-cover object-top inline-block" /> Редстоун<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/sugar.png" className="w-4 h-4 object-cover object-top inline-block" /> Сахар<br/><img src="https://raw.githubusercontent.com/misode/mcmeta/assets/assets/minecraft/textures/item/diamond.png" className="w-4 h-4 object-cover object-top inline-block" /> Алмаз</td>
+      <td>30</td>
+      <td>Нет</td>
+      <td>Нет</td>
+      <td>0</td>
+      <td>Нет (имитирует рестарт сервера)</td>
+  </tr>
+  </tbody>
+</table>
+</div>
