@@ -1,54 +1,72 @@
 ---
-title: Voice chat
-description: Voice chat allows you to communicate with players by voice directly in the game.
+title: How to connect a domain to CloudFlare?
+description: Step-by-step guide to buying a domain and connecting it to CloudFlare via nameserver records.
 category: main
 disabledin: false
 ---
 
+To connect your domain to CloudFlare, you first need to buy it.
 
-## Installation
+## Where to buy a domain
 
-Throw it into your mods folder and enjoy.
+We recommend the following places to buy a domain:
 
-# PlasmoVoice
+- **CloudFlare** — yes, you can buy a domain right there.
+- **Network Solutions** — we use their services ourselves, a great platform.
+- **REG.RU** — if your domain is `.ru` or `.su`; not supported in the Ukrainian zone.
 
-[Download mod](https://modrinth.com/plugin/plasmo-voice/versions?g=1.21.11&l=fabric)
+You can buy a domain elsewhere too, but there's usually a markup, so we recommend these places specifically.
 
-## Icons
+## Connecting the domain
 
-![player-icons](voicechat/player-icons.png)
+Once you've bought the domain, move on to connecting it.
 
-## Interface
+If the domain was bought on CloudFlare, there's nothing extra to configure — it was added automatically when you bought it.
 
-The voice chat window can be opened by pressing the <kbd>V</kbd> key. Through it you can:
+If it was bought somewhere else, you need to set up **nameserver (NS) records**. An NS record is a special record that connects your domain to a different provider.
 
-- Open settings
-- Turn off/on the microphone
-- Disable voice chat
-- Adjust player volume
-- Adjust the volume of players
+> Example (very abstract, but the same idea applies): you bought your own coffee shop, but it's located in the city of Mariupol — you need special records so it's counted as being in a different city.
 
-![voice1](voicechat/pv1.png)
+### 1. Click the Add domain button
 
-## Group chats
+![The Add domain button on the CloudFlare domains page](how-to-connect-cloudflare-domain/add-domain-button.png)
 
-Group chats allow you to communicate with players who are not near you.
+### 2. Select a plan
 
-1. To open the group chat interface, click the group button in the voice chat window or use the key
-group chat.
+Yes, CloudFlare is a paid platform, but it has a free tier. We recommend starting with that one.
 
-2. To create a new group, enter a name in the text field and click the button below.
+![Selecting the free plan](how-to-connect-cloudflare-domain/select-free-plan.png)
 
-![voice2](voicechat/pv2.png)
+### 3. Click Continue to activation
 
-## Default button bindings
+Without changing anything in the suggested DNS records, click the continue button.
 
-![voice3](voicechat/keybindings.png)
+![The Continue to activation button](how-to-connect-cloudflare-domain/continue-to-activation.png)
 
-## Addons
+### 4. Copy the nameservers and add them at your registrar
 
-[SoundPhysics](https://modrinth.com/mod/pv-addon-soundphysics)
-Adds compatibility with Sound Physics Remastered. Plasmo Voice is influenced by the laws of sound physics.
+This is the most important step. You need to copy the nameservers CloudFlare gives you — there are 2 of them — and add them at your domain registrar.
 
-[Talking Heads](https://modrinth.com/mod/talkingheads)
-Client addon for PlasmoVoice and SimpleVoiceChat that changes the size of players' heads during a conversation.
+We can't show exactly how to change nameservers at your registrar — it's different for every one. After the change, you should be left with **only the 2** nameservers CloudFlare gave you — for example, like in the screenshot.
+
+![Example of the CloudFlare nameservers to keep and the old registrar nameservers to remove](how-to-connect-cloudflare-domain/cloudflare-ns-records.png)
+
+### 5. Wait 5-10 minutes and click I updated my nameservers
+
+After changing the nameservers, wait **5-10 minutes** (important — not less, the records usually don't have time to update sooner). Then click **I updated my nameservers**.
+
+![The I updated my nameservers button](how-to-connect-cloudflare-domain/updated-nameservers-button.png)
+
+### 6. Done!
+
+Go back to your domains tab (where you started this guide). If the domain's status is **Active**, congratulations, you've done everything right.
+
+## What to do if it shows Invalid nameservers?
+
+![The Invalid nameservers status in the domains tab](how-to-connect-cloudflare-domain/invalid-nameservers-status.png)
+
+If it shows **Invalid nameservers** — in 90% of cases that's normal. Your registrar (especially if it's not a European one) may take longer than 5-10 minutes to update the nameservers, and it can take up to **24 hours**.
+
+Don't rush — check back in 5-6 hours. If it still shows **Invalid nameservers**, you can contact our support so we can check whether everything was done correctly. Usually, it should work within 5-6 hours.
+
+In rare cases the process can take the full 24 hours — it depends on the registrar, especially if the domain is a free one.
