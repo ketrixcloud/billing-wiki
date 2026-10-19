@@ -1,0 +1,106 @@
+---
+title: Common MTA errors
+description: Common MTA server problems with connections, ports, resources, and Lua scripts, plus practical fixes.
+category: mta
+disabledin: false
+---
+
+# Common MTA errors
+
+When a server fails to start or players cannot connect, check the exact message in the server console and files under `mods/deathmatch/logs/`. For script errors, enable `debugscript 3`; messages usually include the resource, file, and line. Fix the cause shown in the log before changing several settings at once.
+
+## The server is missing from the browser or players cannot connect
+
+A common cause is a blocked port, the wrong protocol, or a mismatch between the port configured in MTA and the port assigned by the host.
+
+**Fix:**
+
+1. Compare `<serverport>` in `mods/deathmatch/mtaserver.conf` with the port assigned to the server in the hosting panel.
+2. Make sure the game port is allowed over **UDP** and that the server listens on that port. On hosted servers, check the port allocation; on a home server, check UDP forwarding in the router and firewall.
+3. To appear in the server browser, check that `<ase>1</ase>` is enabled and that UDP port `serverport + 123` is reachable.
+4. Run `openports` in the server console and review the result.
+
+The HTTP port is used to download resource files to clients, not for the game connection. Its default is TCP port `22005`.
+
+## The server hangs during startup or immediately stops
+
+The first error in the console or `server.log` often points to the cause: invalid XML in `mtaserver.conf`, an unknown setting, or a required resource that failed to start.
+
+**Fix:**
+
+1. Check the console and `mods/deathmatch/logs/server.log`; find the first error before the server stops.
+2. Make sure `mtaserver.conf` is valid XML: tags are closed, values are inside the right tags, and the file was saved completely.
+3. If this started after a configuration change, restore the last working copy and reapply changes one at a time.
+4. If the message names a resource, follow the resource troubleshooting steps below.
+
+## A resource is missing or will not start
+
+MTA may not detect a resource if its folder has no `meta.xml`, the XML is invalid, or a script path does not match the file name.
+
+**Fix:**
+
+1. Make sure the resource folder is in `mods/deathmatch/resources/` and `meta.xml` is at the root of that folder.
+2. Check the `src` paths and script type (`server`, `client`, or `shared`) in `meta.xml`. File names and letter case must match exactly; this is especially important on Linux.
+3. Run `refresh`, then `start resource_name` in the server console.
+4. Install and start required dependencies first. Avoid spaces and non-ASCII characters in resource names.
+
+## `attempt to call global ... (a nil value)` or `bad argument` in `debugscript 3`
+
+A script may be calling an unknown function, passing an argument of the wrong type, or using data that is not available yet.
+
+**Fix:**
+
+1. Enable `debugscript 3` and open the file and line shown in the message, for example `resource/script.lua:42`.
+2. Check the spelling of the function and the arguments passed to it.
+3. Make sure the function is called on the right side: client code from a client script and server code from a server script.
+4. If the function or data belongs to another resource, add the dependency and start it first.
+
+## `Access denied`
+
+The resource or account lacks an ACL permission for a specific command or function. Do not grant full access just to hide the error.
+
+**Fix:**
+
+1. Find the resource name and denied right in the log, such as `function.startResource`.
+2. In `mods/deathmatch/acl.xml`, add only that right to the appropriate ACL and assign the resource to the matching group.
+3. Run the server command `reloadacl` or restart the server, then try again.
+
+See [Access Control List](https://wiki.multitheftauto.com/wiki/Access_Control_List).
+
+## A player connects, but file downloads fail
+
+The game connection uses UDP, while the built-in HTTP server sends resource files to clients over TCP. Downloads can fail when the HTTP port is unreachable or a file is not declared in the resource.
+
+**Fix:**
+
+1. Make sure `<httpserver>1</httpserver>` is enabled in `mtaserver.conf` and `<httpport>` is set correctly.
+2. Allow that port over **TCP** in the hosting panel and firewall.
+3. Check that client files are listed in `meta.xml` with `<file src="path/to/file" />` and that the path and letter case match.
+4. After changing files, run `refresh` and restart the affected resource.
+
+## The MTA client crashes when joining a server
+
+Single-player GTA: San Andreas modifications can conflict with MTA and cause crashes during connection.
+
+**Fix:**
+
+1. Try a clean GTA: San Andreas installation without mods or third-party files.
+2. Install the current MTA client from the official website and try again.
+3. If the crash happens only on one server, send its administrators the crash time and client log; a server resource may be involved.
+
+## What to include in a support request
+
+- The exact error text or a screenshot of the console.
+- The resource name and file/line number, if shown.
+- `server.log` or `scripts.log` from the time the issue occurred.
+- The port and protocol assigned to the server in the hosting panel.
+
+Remove passwords, tokens, and other secrets from logs before sharing them.
+
+## Official MTA documentation
+
+- [Server Manual: ports, `openports`, and HTTP server](https://wiki.multitheftauto.com/wiki/Server_Manual)
+- [Server configuration: `mtaserver.conf`](https://wiki.multitheftauto.com/wiki/Server_mtaserver.conf)
+- [Resources and `meta.xml`](https://wiki.multitheftauto.com/wiki/Resources)
+- [Script debugging](https://wiki.multitheftauto.com/wiki/Debugging)
+- [Client and download errors](https://wiki.multitheftauto.com/wiki/Client_manual)
