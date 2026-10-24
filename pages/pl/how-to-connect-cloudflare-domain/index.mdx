@@ -1,0 +1,60 @@
+---
+title: Jak podłączyć domenę do Cloudflare?
+description: Jak kupić domenę i połączyć ją z Cloudflare przez serwery nazw.
+category: main
+disabledin: false
+---
+
+Aby podłączyć domenę do Cloudflare, najpierw musisz ją kupić.
+
+## Gdzie kupić domenę?
+
+Polecamy następujących rejestratorów:
+
+- **Cloudflare** — domenę możesz kupić bezpośrednio tam.
+- **Network Solutions** — sami korzystamy z ich usług.
+- **REG.RU** — dla domen `.ru` lub `.su`; ta opcja nie jest dostępna w ukraińskiej strefie.
+
+Możesz też kupić domenę gdzie indziej, ale ceny bywają wyższe.
+
+## Podłączanie domeny
+
+Jeśli kupisz domenę w Cloudflare, zostanie dodana automatycznie i nie wymaga dalszych ustawień. Dla domeny kupionej u innego rejestratora musisz zmienić jej **serwery nazw (rekordy NS)**. To ustawienie wskazuje, kto zarządza rekordami DNS domeny.
+
+### 1. Kliknij przycisk dodania domeny
+
+![Przycisk dodawania domeny w Cloudflare](how-to-connect-cloudflare-domain/add-domain-button.png)
+
+### 2. Wybierz plan
+
+Cloudflare ma również plan bezpłatny. Na początek polecamy właśnie ten plan.
+
+![Wybór bezpłatnego planu](how-to-connect-cloudflare-domain/select-free-plan.png)
+
+### 3. Przejdź do aktywacji
+
+Nie zmieniając proponowanych rekordów DNS, kliknij przycisk kontynuowania aktywacji.
+
+![Przycisk kontynuowania aktywacji](how-to-connect-cloudflare-domain/continue-to-activation.png)
+
+### 4. Skopiuj serwery nazw do panelu rejestratora
+
+Cloudflare pokaże **dwa** serwery nazw. Skopiuj je i ustaw u rejestratora swojej domeny. Sposób zmiany zależy od rejestratora, dlatego nie możemy podać jednej instrukcji dla wszystkich paneli. Po zmianie powinny pozostać **tylko dwa** serwery nazw podane przez Cloudflare.
+
+![Serwery nazw Cloudflare i stare serwery nazw rejestratora](how-to-connect-cloudflare-domain/cloudflare-ns-records.png)
+
+### 5. Poczekaj i potwierdź zmianę
+
+Po zapisaniu serwerów nazw odczekaj **5–10 minut**, a następnie kliknij **„I updated my nameservers”**.
+
+![Przycisk potwierdzenia aktualizacji serwerów nazw](how-to-connect-cloudflare-domain/updated-nameservers-button.png)
+
+### 6. Sprawdź status domeny
+
+Wróć do listy domen. Status **„Active”** oznacza, że połączenie się udało.
+
+## Co oznacza status „Invalid nameservers”?
+
+![Status Invalid nameservers na liście domen](how-to-connect-cloudflare-domain/invalid-nameservers-status.png)
+
+Zwykle oznacza to, że rejestrator nie zdążył jeszcze zaktualizować serwerów nazw. Sprawdź status ponownie po **5–6 godzinach**. W niektórych przypadkach aktualizacja może potrwać nawet **24 godziny**, szczególnie w przypadku darmowych domen. Jeśli status nie zmienia się przez kilka godzin, skontaktuj się z naszą pomocą techniczną — sprawdzimy ustawienia.

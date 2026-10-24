@@ -1,0 +1,90 @@
+---
+title: Typowe błędy MTA
+description: Problemy z połączeniem, portami, zasobami i skryptami Lua oraz sposoby ich rozwiązania.
+category: mta
+disabledin: false
+---
+
+Gdy serwer nie uruchamia się lub gracze nie mogą się połączyć, sprawdź dokładny komunikat w konsoli oraz pliki w `mods/deathmatch/logs/`. W przypadku błędów skryptów włącz `debugscript 3`. Komunikat zwykle podaje nazwę zasobu, plik i numer wiersza. Najpierw ustal przyczynę błędu, a dopiero potem zmieniaj konfigurację.
+
+## Serwera nie ma na liście lub gracze nie mogą się połączyć
+
+Przyczyną może być zablokowany port, zły protokół albo różnica między portem MTA a portem przydzielonym w panelu.
+
+1. Porównaj wartość `<serverport>` w `mods/deathmatch/mtaserver.conf` z portem widocznym w panelu.
+2. Upewnij się, że port gry obsługuje **UDP** i że serwer go nasłuchuje. Na własnym sprzęcie sprawdź także przekierowanie portu na routerze i zaporę sieciową.
+3. Aby serwer pojawił się na liście, włącz `<ase>1</ase>` i sprawdź dostępność portu UDP o numerze `serverport + 123`.
+4. Uruchom polecenie `openports` w konsoli i sprawdź wynik.
+
+Port HTTP służy do pobierania plików przez graczy, a nie do samego połączenia z grą. Domyślnie używa portu TCP `22005`.
+
+## Serwer zawiesza się podczas uruchamiania albo od razu się wyłącza
+
+Pierwszy błąd w konsoli lub w `server.log` zwykle wskazuje przyczynę: niepoprawny XML w `mtaserver.conf`, nieznane ustawienie albo zasób, którego nie udało się uruchomić.
+
+1. Sprawdź konsolę i `mods/deathmatch/logs/server.log`. Znajdź pierwszy błąd sprzed zatrzymania serwera.
+2. Sprawdź, czy `mtaserver.conf` jest poprawnym plikiem XML: wszystkie znaczniki są zamknięte, a wartości znajdują się we właściwych znacznikach.
+3. Jeśli problem pojawił się po zmianie konfiguracji, przywróć ostatnią działającą kopię i wprowadzaj zmiany pojedynczo.
+4. Jeśli komunikat wskazuje zasób, skorzystaj z następnej sekcji.
+
+## Brakuje zasobu albo nie można go uruchomić
+
+MTA może nie wykryć zasobu, jeśli w jego katalogu nie ma `meta.xml`, plik XML zawiera błąd albo ścieżka skryptu nie odpowiada nazwie pliku.
+
+1. Sprawdź, czy katalog zasobu znajduje się w `mods/deathmatch/resources/`, a `meta.xml` leży bezpośrednio w tym katalogu.
+2. Sprawdź ścieżki `src` i typ skryptu (`server`, `client` lub `shared`) w `meta.xml`. Wielkość liter ma znaczenie, zwłaszcza na Linuksie.
+3. Uruchom w konsoli `refresh`, a następnie `start resource_name`.
+4. Zainstaluj wymagane zależności i uruchom je. Unikaj spacji oraz znaków spoza ASCII w nazwach zasobów.
+
+## Błąd `attempt to call global ... (a nil value)` lub `bad argument`
+
+Skrypt wywołuje nieistniejącą funkcję, przekazuje argument złego typu albo próbuje użyć danych, które nie są jeszcze dostępne.
+
+1. Włącz `debugscript 3` i otwórz plik oraz wiersz wskazany w komunikacie, na przykład `resource/script.lua:42`.
+2. Sprawdź nazwę funkcji i przekazywane argumenty.
+3. Upewnij się, że kod klienta działa w skrypcie klienta, a kod serwera w skrypcie serwera.
+4. Jeśli funkcja lub dane pochodzą z innego zasobu, dodaj odpowiednią zależność i uruchom ten zasób jako pierwszy.
+
+## Błąd `Access denied`
+
+Zasób lub konto nie ma wymaganych uprawnień ACL. Nie przyznawaj pełnego dostępu tylko po to, by ukryć błąd.
+
+1. W dzienniku znajdź nazwę zasobu i brakujące uprawnienie, na przykład `function.startResource`.
+2. W `mods/deathmatch/acl.xml` dodaj tylko potrzebne uprawnienie do właściwej grupy ACL i przypisz do niej zasób.
+3. Uruchom `reloadacl` albo zrestartuj serwer i spróbuj ponownie.
+
+Więcej informacji znajdziesz w [dokumentacji ACL](https://wiki.multitheftauto.com/wiki/Access_Control_List).
+
+## Gracz może się połączyć, ale nie może pobrać plików
+
+Gra łączy się przez UDP, lecz wbudowany serwer HTTP przesyła pliki zasobów przez TCP. Pobieranie nie zadziała, gdy port HTTP jest niedostępny albo plik nie został zadeklarowany w zasobie.
+
+1. Sprawdź, czy w `mtaserver.conf` ustawiono `<httpserver>1</httpserver>` i poprawny `<httpport>`.
+2. Otwórz ten port **TCP** w panelu i zaporze sieciowej.
+3. Sprawdź, czy pliki klienta są wymienione w `meta.xml`, na przykład jako `<file src="path/to/file" />`. Ścieżka i wielkość liter muszą się zgadzać.
+4. Po zmianach uruchom `refresh` i zrestartuj odpowiednie zasoby.
+
+## Klient MTA wyłącza się podczas dołączania
+
+Mody do podstawowej wersji GTA: San Andreas mogą kolidować z MTA.
+
+1. Uruchom czystą instalację GTA: San Andreas, bez modów i dodatkowych plików.
+2. Zainstaluj aktualną wersję klienta MTA z oficjalnej strony.
+3. Jeśli problem występuje tylko na jednym serwerze, prześlij administratorom czas awarii i dziennik klienta. Przyczyną może być zasób serwera.
+
+## Co dołączyć do zgłoszenia?
+
+- Dokładny komunikat błędu lub zrzut ekranu konsoli.
+- Nazwę zasobu, plik i numer wiersza, jeśli są podane.
+- Fragment `server.log` lub `scripts.log` z czasu wystąpienia problemu.
+- Port i protokół przypisane do serwera w panelu.
+
+Przed udostępnieniem dzienników usuń z nich hasła, tokeny i inne poufne dane.
+
+## Oficjalna dokumentacja MTA
+
+- [Podręcznik serwera: porty, `openports` i HTTP](https://wiki.multitheftauto.com/wiki/Server_Manual)
+- [Konfiguracja `mtaserver.conf`](https://wiki.multitheftauto.com/wiki/Server_mtaserver.conf)
+- [Zasoby i `meta.xml`](https://wiki.multitheftauto.com/wiki/Resources)
+- [Debugowanie skryptów](https://wiki.multitheftauto.com/wiki/Debugging)
+- [Podręcznik klienta](https://wiki.multitheftauto.com/wiki/Client_manual)
