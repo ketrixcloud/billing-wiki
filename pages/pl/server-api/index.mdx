@@ -68,7 +68,7 @@ Błąd:
 | 403 | `api_key_address_denied` | Żądanie przyszło z adresu spoza dozwolonych |
 | 403 | `access_denied` | Klucz nie ma uprawnienia do tej czynności |
 | 404 | `not_found` | Nie znaleziono serwera albo klucz należy do innego serwera |
-| 429 | `api_rate_limited` | Za dużo żądań — sprawdź nagłówek `Retry-After` |
+| 429 | `api_rate_limited` | Za dużo żądań z kluczem lub z błędnym kluczem z Twojego adresu — sprawdź nagłówek `Retry-After` |
 | 409 | `server_not_ready` | Serwer jeszcze się instaluje |
 | 403 | `service_inactive` | Subskrypcja nie jest aktywna — przedłuż usługę |
 | 502 | `node_unavailable` | Węzeł serwera nie odpowiedział, spróbuj później |
@@ -77,6 +77,7 @@ Błąd:
 ## Limity
 
 - **120 żądań na minutę** na jeden klucz. Po przekroczeniu API odpowiada `429` z nagłówkiem `Retry-After` — po ilu sekundach można kontynuować.
+- **20 żądań na minutę** z błędnym lub usuniętym kluczem z jednego adresu. Potem API do końca minuty odpowiada temu adresowi `429` — nawet na poprawny klucz.
 - **Do 3 kluczy** na serwer i **do 10 adresów** na klucz.
 
 Jeśli potrzebujesz częściej — nie odpytuj serwera w pętli, tylko połącz się z konsolą przez WebSocket (niżej): zmiany przyjdą same.
@@ -120,6 +121,7 @@ Klucze mają uprawnienia dostępu współdzielonego oraz osobne uprawnienia do z
 | Żądanie | Uprawnienie | Co robi |
 | --- | --- | --- |
 | `GET /` | — | Dane serwera: rdzeń, limity, porty, dane SFTP, stan (`power`, CPU, pamięć, dysk, sieć, czas działania) |
+| `GET /bundle` | — | Stan archiwum serwera podczas zawieszenia usługi |
 | `POST /power` | uprawnienie danego przycisku | Zasilanie. Treść: `{"action": "start"}` — `start`, `restart`, `stop` lub `kill` |
 | `POST /command` | `console_command` | Polecenie do konsoli. Treść: `{"command": "say Cześć"}` |
 | `GET /console/snapshot` | `console_read` | Ostatnie 100 linii konsoli |
@@ -346,6 +348,6 @@ asyncio.run(main())
 - Dawaj kluczowi tylko potrzebne uprawnienia i, jeśli skrypt działa ze stałego adresu, ogranicz klucz do tego adresu.
 - Jeśli klucz mógł wyciec — usuń go w panelu, od razu przestanie działać. Potem utwórz nowy.
 - Wszystko, co robi klucz, trafia do **dziennika** serwera z nazwą klucza — widać, który skrypt co zrobił.
-- Przy przekazaniu serwera innemu właścicielowi wszystkie jego klucze są usuwane.
+- Gdy serwer przechodzi do innego właściciela — przez przekazanie lub przez wsparcie — wszystkie jego klucze i udostępnienia są usuwane.
 
 Masz pytania? Napisz do nas w zgłoszeniu — pomożemy.

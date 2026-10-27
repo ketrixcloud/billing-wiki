@@ -68,7 +68,7 @@ An error:
 | 403 | `api_key_address_denied` | The request came from an address that is not allowed |
 | 403 | `access_denied` | The key has no permission for this action |
 | 404 | `not_found` | The server was not found, or the key belongs to another server |
-| 429 | `api_rate_limited` | Too many requests — see the `Retry-After` header |
+| 429 | `api_rate_limited` | Too many requests with the key, or with wrong keys from your address — see the `Retry-After` header |
 | 409 | `server_not_ready` | The server is still being installed |
 | 403 | `service_inactive` | The subscription is not active — renew the service |
 | 502 | `node_unavailable` | The server's node did not answer, try again later |
@@ -77,6 +77,7 @@ An error:
 ## Limits
 
 - **120 requests per minute** per key. Above that, the API answers `429` with a `Retry-After` header — how many seconds to wait.
+- **20 requests per minute** with a wrong or deleted key from one address. After that the API answers that address `429` until the minute ends — even with a correct key.
 - **Up to 3 keys** per server and **up to 10 addresses** per key.
 
 If you need more, do not poll the server in a loop — connect to the console over WebSocket (below) and changes come to you.
@@ -120,6 +121,7 @@ Paths below are relative to `https://ketrix.cloud/api/client/servers/{id}`.
 | Request | Permission | What it does |
 | --- | --- | --- |
 | `GET /` | — | Server details: core, limits, ports, SFTP details, state (`power`, CPU, memory, disk, network, uptime) |
+| `GET /bundle` | — | Server archive status while the service is suspended |
 | `POST /power` | the button's permission | Power. Body: `{"action": "start"}` — `start`, `restart`, `stop` or `kill` |
 | `POST /command` | `console_command` | A console command. Body: `{"command": "say Hello"}` |
 | `GET /console/snapshot` | `console_read` | The last 100 console lines |
@@ -346,6 +348,6 @@ asyncio.run(main())
 - Give the key only the permissions it needs and, if your script runs from a fixed address, limit the key to that address.
 - If the key may have leaked, delete it in the panel — it stops working at once. Then create a new one.
 - Everything done with a key goes into the server's **journal** under the key's name, so you can see which script did what.
-- When the server is transferred to another owner, all its keys are deleted.
+- When the server passes to another owner — by a transfer or through support — all its keys and shared access are deleted.
 
 Questions left? Write to us in a ticket and we will help.
