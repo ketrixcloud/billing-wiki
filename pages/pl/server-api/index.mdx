@@ -9,14 +9,14 @@ API serwera to ten sam panel sterowania, tylko dla Twoich programów: bota na Di
 
 Dostęp daje **klucz API**. Klucz należy do jednego serwera, może tylko to, na co mu pozwolisz, i jeśli chcesz, działa wyłącznie z podanych adresów IP.
 
-> API jest dostępne dla serwerów na naszych węzłach — serwerów gier, WWW i dev. Subskrypcją, domenami, współdzielonym dostępem i dziennikiem nie można zarządzać kluczem: to pozostaje przy właścicielu w panelu.
+> API jest dostępne dla serwerów gier, WWW i dev na naszych węzłach. Subskrypcja i same klucze API pozostają w panelu właściciela. Dostęp współdzielony i dziennik aktywności są dostępne po nadaniu odpowiednich uprawnień.
 
 ## Jak utworzyć klucz
 
 1. Otwórz serwer i przejdź do zakładki **Ustawienia**.
 2. W bloku **API** kliknij **Utwórz klucz**.
 3. Nadaj kluczowi nazwę — na przykład „Monitoring” albo „Bot Discord”.
-4. Opcjonalnie podaj **dozwolone adresy**: adresy IP lub podsieci, oddzielone przecinkami albo w nowych wierszach, do 10. Jeśli pole jest puste, klucz działa z dowolnego adresu.
+4. Podaj **dozwolone adresy**: `%` dla dowolnego IP albo do 10 adresów IP i podsieci oddzielonych przecinkami lub nowymi wierszami.
 5. Zaznacz, co klucz może robić. Zaznacz tylko to, co potrzebne — do monitoringu wystarczy podgląd konsoli.
 6. Kliknij **Utwórz klucz** i od razu go skopiuj.
 
@@ -83,7 +83,7 @@ Jeśli potrzebujesz częściej — nie odpytuj serwera w pętli, tylko połącz 
 
 ## Uprawnienia
 
-Uprawnienia są takie same jak przy współdzielonym dostępie. Każda czynność wymaga swojego uprawnienia; bez niego API odpowie `403 access_denied`.
+Klucze mają uprawnienia dostępu współdzielonego oraz osobne uprawnienia do zarządzania dostępem i przeglądania aktywności. Każda czynność wymaga swojego uprawnienia; bez niego API odpowie `403 access_denied`.
 
 | Uprawnienie | Co otwiera |
 | --- | --- |
@@ -106,6 +106,10 @@ Uprawnienia są takie same jak przy współdzielonym dostępie. Każda czynnoś�
 | `addons_read`, `addons_manage` | Mody i pluginy: wyszukiwanie i podgląd, instalacja i usuwanie |
 | `startup_read`, `startup_update` | Obraz i zmienne uruchamiania |
 | `settings_reinstall` | Ponowna instalacja serwera |
+| `shares_read`, `shares_manage` | Podgląd i zarządzanie dostępem współdzielonym. Klucz nie może nadać uprawnień, których sam nie posiada |
+| `activity_read` | Podgląd dziennika aktywności serwera |
+| `site_check` | Sprawdzanie dostępności strony |
+| `domains_read`, `domains_manage` | Podgląd, podłączanie i odłączanie domeny |
 
 ## Żądania
 
@@ -219,6 +223,21 @@ Zadanie: `action` to `command` (polecenie do konsoli), `power` (`start`, `restar
 | `GET /startup` | `startup_read` | Obraz, polecenie uruchomienia i zmienne |
 | `PUT /startup` | `startup_update` | `{"image": "…", "variables": {"SERVER_JARFILE": "server.jar"}}` |
 | `POST /reinstall` | `settings_reinstall` | Zainstaluj serwer ponownie |
+
+### Dostęp współdzielony i aktywność
+
+| Żądanie | Uprawnienie | Działanie |
+| --- | --- | --- |
+| `GET /shares` | `shares_read` | Lista użytkowników i zaproszeń |
+| `POST /shares` | `shares_manage` | Zaproszenie użytkownika: `{"target":"login lub email","permissions":["files_read"]}` |
+| `PATCH /shares/{share}` | `shares_manage` | Zmiana uprawnień: `{"permissions":["files_read"]}` |
+| `DELETE /shares/{share}` | `shares_manage` | Cofnięcie dostępu |
+| `DELETE /invites/{invite}` | `shares_manage` | Anulowanie zaproszenia |
+| `GET /activity` | `activity_read` | Dziennik aktywności serwera |
+| `GET /site-check` | `site_check` | Dostępność strony na serwerze WWW lub dev |
+| `GET /domain` | `domains_read` | Podłączona domena |
+| `POST /domain` | `domains_manage` | Podłączenie domeny: `{"type":"custom","domain":"example.com"}` lub subdomeny z `type:"subdomain"`, `zone` i `domain` |
+| `DELETE /domain` | `domains_manage` | Odłączenie domeny |
 
 ## Konsola przez WebSocket
 

@@ -9,14 +9,14 @@ The server API is the control panel for your programs: a Discord bot, a monitori
 
 Access is given with an **API key**. A key belongs to one server, can do only what you allowed it, and, if you like, works only from the IP addresses you list.
 
-> The API is available for servers on our own nodes — game, web and dev servers. The subscription, domains, shared access and the journal cannot be managed with a key: they stay with the owner in the panel.
+> The API is available for game, web and dev servers on our own nodes. The subscription and API keys themselves stay with the owner in the panel. Shared access and the activity journal are available when the key has their permissions.
 
 ## Creating a key
 
 1. Open the server and go to the **Settings** tab.
 2. In the **API** card, click **Create key**.
 3. Give the key a name — for example, "Monitoring" or "Discord bot".
-4. Optionally list the **allowed addresses**: IP addresses or ranges, separated by commas or new lines, up to 10. If the field is empty, the key works from any address.
+4. Set the **allowed addresses**: `%` for any IP, or up to 10 IP addresses and ranges separated by commas or new lines.
 5. Tick what the key may do. Tick only what you need — for monitoring, reading the console is enough.
 6. Click **Create key** and copy it right away.
 
@@ -83,7 +83,7 @@ If you need more, do not poll the server in a loop — connect to the console ov
 
 ## Permissions
 
-Permissions are the same as for shared access. Each action needs its own permission; without it the API answers `403 access_denied`.
+Keys have the shared-access permissions plus separate permissions for managing access and viewing activity. Each action needs its own permission; without it the API answers `403 access_denied`.
 
 | Permission | What it opens |
 | --- | --- |
@@ -106,6 +106,10 @@ Permissions are the same as for shared access. Each action needs its own permiss
 | `addons_read`, `addons_manage` | Mods and plugins: search and view, install and remove |
 | `startup_read`, `startup_update` | Image and startup variables |
 | `settings_reinstall` | Reinstalling the server |
+| `shares_read`, `shares_manage` | View and manage shared access. A key cannot grant permissions it does not hold |
+| `activity_read` | View the server activity journal |
+| `site_check` | Check site availability |
+| `domains_read`, `domains_manage` | View, connect and disconnect a domain |
 
 ## Requests
 
@@ -219,6 +223,21 @@ A task: `action` is `command` (a console command), `power` (`start`, `restart`, 
 | `GET /startup` | `startup_read` | Image, startup command and variables |
 | `PUT /startup` | `startup_update` | `{"image": "…", "variables": {"SERVER_JARFILE": "server.jar"}}` |
 | `POST /reinstall` | `settings_reinstall` | Reinstall the server |
+
+### Shared access and activity
+
+| Request | Permission | Action |
+| --- | --- | --- |
+| `GET /shares` | `shares_read` | List users and invitations |
+| `POST /shares` | `shares_manage` | Invite a user: `{"target":"login or email","permissions":["files_read"]}` |
+| `PATCH /shares/{share}` | `shares_manage` | Change permissions: `{"permissions":["files_read"]}` |
+| `DELETE /shares/{share}` | `shares_manage` | Revoke access |
+| `DELETE /invites/{invite}` | `shares_manage` | Cancel an invitation |
+| `GET /activity` | `activity_read` | Server activity journal |
+| `GET /site-check` | `site_check` | Site availability for web or dev servers |
+| `GET /domain` | `domains_read` | Connected domain |
+| `POST /domain` | `domains_manage` | Connect a domain: `{"type":"custom","domain":"example.com"}` or a subdomain with `type:"subdomain"`, `zone` and `domain` |
+| `DELETE /domain` | `domains_manage` | Disconnect the domain |
 
 ## Console over WebSocket
 
