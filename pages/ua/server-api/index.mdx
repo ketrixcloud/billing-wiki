@@ -165,7 +165,7 @@ Authorization: Bearer ktx_ваш_ключ
 | --- | --- | --- |
 | `GET /databases` | `databases_read` | Паролі видно лише з `databases_password` |
 | `POST /databases` | `databases_create` | `{"name": "shop", "remote": "%"}` — `remote`: з яких адрес можна підключатися, `%` — з будь-яких |
-| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.7"}` |
+| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.0/24"}` — підмережі IPv4 теж підтримуються |
 | `POST /databases/{id}/rotate` | `databases_rotate` | Новий пароль |
 | `DELETE /databases/{id}` | `databases_delete` | — |
 

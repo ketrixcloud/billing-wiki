@@ -16,7 +16,7 @@ Access is given with an **API key**. A key belongs to one server, can do only wh
 1. Open the server and go to the **Settings** tab.
 2. In the **API** card, click **Create key**.
 3. Give the key a name — for example, "Monitoring" or "Discord bot".
-4. Set the **allowed addresses**: `%` for any IP, or up to 10 IP addresses and ranges separated by commas or new lines.
+4. Set the **allowed addresses**: `%` for any IP, or up to 10 IP addresses and CIDR subnets such as `192.168.1.0/24`, separated by commas or new lines.
 5. Tick what the key may do. Tick only what you need — for monitoring, reading the console is enough.
 6. Click **Create key** and copy it right away.
 
@@ -165,7 +165,7 @@ File paths are relative to the server's root and start with `/`.
 | --- | --- | --- |
 | `GET /databases` | `databases_read` | Passwords only with `databases_password` |
 | `POST /databases` | `databases_create` | `{"name": "shop", "remote": "%"}` — `remote`: addresses allowed to connect, `%` — any |
-| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.7"}` |
+| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.0/24"}` — IPv4 subnets are supported too |
 | `POST /databases/{id}/rotate` | `databases_rotate` | A new password |
 | `DELETE /databases/{id}` | `databases_delete` | — |
 

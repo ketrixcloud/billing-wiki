@@ -165,7 +165,7 @@ Jeśli zasilanie nie zostanie potwierdzone w ciągu 5 sekund, odpowiedź to `504
 | --- | --- | --- |
 | `GET /databases` | `databases_read` | Hasła widać tylko z `databases_password` |
 | `POST /databases` | `databases_create` | `{"name": "shop", "remote": "%"}` — `remote`: z jakich adresów można się łączyć, `%` — z dowolnych |
-| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.7"}` |
+| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.0/24"}` — podsieci IPv4 są też obsługiwane |
 | `POST /databases/{id}/rotate` | `databases_rotate` | Nowe hasło |
 | `DELETE /databases/{id}` | `databases_delete` | — |
 
