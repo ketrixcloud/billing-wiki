@@ -1,0 +1,332 @@
+---
+title: API serwera
+description: Jak zarządzać serwerem z własnych skryptów przez API ketrix.cloud — klucze, uprawnienia, adresy i wszystkie żądania z przykładami.
+category: main
+disabledin: false
+---
+
+API serwera to ten sam panel sterowania, tylko dla Twoich programów: bota na Discordzie, panelu monitoringu, skryptu automatycznego restartu albo wdrażania strony. Wszystko, co robisz ręcznie w zakładkach serwera, możesz zrobić żądaniami.
+
+Dostęp daje **klucz API**. Klucz należy do jednego serwera, może tylko to, na co mu pozwolisz, i jeśli chcesz, działa wyłącznie z podanych adresów IP.
+
+> API jest dostępne dla serwerów na naszych węzłach — serwerów gier, WWW i dev. Subskrypcją, domenami, współdzielonym dostępem i dziennikiem nie można zarządzać kluczem: to pozostaje przy właścicielu w panelu.
+
+## Jak utworzyć klucz
+
+1. Otwórz serwer i przejdź do zakładki **Ustawienia**.
+2. W bloku **API** kliknij **Utwórz klucz**.
+3. Nadaj kluczowi nazwę — na przykład „Monitoring” albo „Bot Discord”.
+4. Opcjonalnie podaj **dozwolone adresy**: adresy IP lub podsieci, oddzielone przecinkami albo w nowych wierszach, do 10. Jeśli pole jest puste, klucz działa z dowolnego adresu.
+5. Zaznacz, co klucz może robić. Zaznacz tylko to, co potrzebne — do monitoringu wystarczy podgląd konsoli.
+6. Kliknij **Utwórz klucz** i od razu go skopiuj.
+
+> Klucz jest pokazywany **tylko raz**. Przechowujemy jedynie jego odcisk i nie możemy pokazać go ponownie. Jeśli klucz zginie — usuń go i utwórz nowy.
+
+Serwer może mieć **do 3 kluczy**. Na liście widać początek każdego klucza (`ktx_ab12cd34…`), jego uprawnienia, dozwolone adresy oraz kiedy i z jakiego IP był ostatnio użyty. Nazwę, uprawnienia i adresy możesz zmienić w każdej chwili — sam klucz się nie zmienia. Usunięty klucz od razu przestaje działać.
+
+Tworzyć, zmieniać i usuwać klucze może tylko właściciel serwera.
+
+## Adres i autoryzacja
+
+Wszystkie żądania idą na adres:
+
+```text
+https://ketrix.cloud/api/client/servers/{id}
+```
+
+`{id}` to numer usługi. Widać go w pasku adresu panelu: w `https://ketrix.cloud/my/services/123/console` to `123`.
+
+Klucz przekazuje się w nagłówku `Authorization`:
+
+```text
+Authorization: Bearer ktx_twoj_klucz
+```
+
+Treść żądań i odpowiedzi to JSON (poza wysyłaniem i pobieraniem plików).
+
+### Format odpowiedzi
+
+Odpowiedź z sukcesem:
+
+```json
+{ "success": true, "data": { ... }, "message": null, "meta": null }
+```
+
+Błąd:
+
+```json
+{ "success": false, "error": { "code": "access_denied", "details": null } }
+```
+
+`code` to stały kod błędu — wygodnie na nim opierać logikę skryptu.
+
+### Częste błędy
+
+| HTTP | `code` | Co oznacza |
+| --- | --- | --- |
+| 401 | `api_key_invalid` | Brak nagłówka `Authorization`, klucz jest błędny albo usunięty |
+| 403 | `api_key_address_denied` | Żądanie przyszło z adresu spoza dozwolonych |
+| 403 | `access_denied` | Klucz nie ma uprawnienia do tej czynności |
+| 404 | `not_found` | Nie znaleziono serwera albo klucz należy do innego serwera |
+| 429 | `api_rate_limited` | Za dużo żądań — sprawdź nagłówek `Retry-After` |
+| 409 | `server_not_ready` | Serwer jeszcze się instaluje |
+| 403 | `service_inactive` | Subskrypcja nie jest aktywna — przedłuż usługę |
+| 502 | `node_unavailable` | Węzeł serwera nie odpowiedział, spróbuj później |
+| 400 | `validation_failed` | Błędne dane w żądaniu, szczegóły w `error.details.issues` |
+
+## Limity
+
+- **120 żądań na minutę** na jeden klucz. Po przekroczeniu API odpowiada `429` z nagłówkiem `Retry-After` — po ilu sekundach można kontynuować.
+- **Do 3 kluczy** na serwer i **do 10 adresów** na klucz.
+
+Jeśli potrzebujesz częściej — nie odpytuj serwera w pętli, tylko połącz się z konsolą przez WebSocket (niżej): zmiany przyjdą same.
+
+## Uprawnienia
+
+Uprawnienia są takie same jak przy współdzielonym dostępie. Każda czynność wymaga swojego uprawnienia; bez niego API odpowie `403 access_denied`.
+
+| Uprawnienie | Co otwiera |
+| --- | --- |
+| `console_read` | Podgląd konsoli i ostatnich linii logu |
+| `console_command` | Wysyłanie poleceń do konsoli, czyszczenie konsoli |
+| `power_start`, `power_restart`, `power_stop`, `power_kill` | Każdy przycisk zasilania osobno |
+| `files_read` | Lista plików i folderów |
+| `files_read_content` | Odczyt i pobieranie plików |
+| `files_create` | Tworzenie folderów, wysyłanie, kopiowanie, pobieranie pliku z adresu URL |
+| `files_update` | Zapis plików, zmiana nazwy i przenoszenie, uprawnienia |
+| `files_delete` | Usuwanie plików |
+| `files_archive` | Archiwizacja i rozpakowywanie |
+| `databases_read` | Lista baz danych |
+| `databases_password` | Hasła baz w odpowiedziach |
+| `databases_create`, `databases_update`, `databases_rotate`, `databases_delete` | Tworzenie bazy, zmiana dozwolonych adresów, nowe hasło, usuwanie |
+| `backups_read`, `backups_create`, `backups_download`, `backups_restore`, `backups_lock`, `backups_delete` | Kopie zapasowe: lista, tworzenie, pobieranie, przywracanie, ochrona przed usunięciem, usuwanie |
+| `schedules_read`, `schedules_create`, `schedules_update`, `schedules_run`, `schedules_delete` | Harmonogramy i ich zadania |
+| `network_read`, `network_create`, `network_update`, `network_delete` | Porty: lista, nowy port, zmiana głównego, usuwanie |
+| `builds_install` | Instalacja gotowych stron (plany WWW) |
+| `addons_read`, `addons_manage` | Mody i pluginy: wyszukiwanie i podgląd, instalacja i usuwanie |
+| `startup_read`, `startup_update` | Obraz i zmienne uruchamiania |
+| `settings_reinstall` | Ponowna instalacja serwera |
+
+## Żądania
+
+Ścieżki poniżej są względem `https://ketrix.cloud/api/client/servers/{id}`.
+
+### Serwer i zasilanie
+
+| Żądanie | Uprawnienie | Co robi |
+| --- | --- | --- |
+| `GET /` | — | Dane serwera: rdzeń, limity, porty, dane SFTP, stan (`power`, CPU, pamięć, dysk, sieć, czas działania) |
+| `POST /power` | uprawnienie danego przycisku | Zasilanie. Treść: `{"action": "start"}` — `start`, `restart`, `stop` lub `kill` |
+| `POST /command` | `console_command` | Polecenie do konsoli. Treść: `{"command": "say Cześć"}` |
+| `GET /console/snapshot` | `console_read` | Ostatnie 100 linii konsoli |
+| `POST /console/clear` | `console_command` | Wyczyść historię konsoli |
+| `GET /ws` | `console_read` | Konsola na żywo (WebSocket, patrz niżej) |
+
+Jeśli zasilanie nie zostanie potwierdzone w ciągu 5 sekund, odpowiedź to `504 power_action_timeout`: polecenie najpewniej nadal się wykonuje. Sprawdź stan przez `GET /`, zanim spróbujesz ponownie.
+
+### Pliki
+
+Ścieżki plików są względem katalogu głównego serwera i zaczynają się od `/`.
+
+| Żądanie | Uprawnienie | Treść lub parametry |
+| --- | --- | --- |
+| `GET /files?directory=/plugins` | `files_read` | Zawartość folderu |
+| `GET /files/contents?file=/server.properties` | `files_read_content` | Tekst pliku (do 4 MB) |
+| `GET /files/download?file=/world.zip` | `files_read_content` | Pobierz plik |
+| `POST /files/write` | `files_update` | `{"file": "/motd.txt", "content": "..."}` — tworzy lub nadpisuje |
+| `PUT /files/rename` | `files_update` | `{"root": "/", "files": [{"from": "a.txt", "to": "b.txt"}]}` |
+| `POST /files/chmod` | `files_update` | `{"root": "/", "files": [{"file": "start.sh", "mode": "755"}]}` |
+| `POST /files/folder` | `files_create` | `{"root": "/", "name": "backups"}` |
+| `POST /files/copy` | `files_create` | `{"location": "/server.properties"}` |
+| `POST /files/upload?directory=/plugins` | `files_create` | `multipart/form-data`, pole `files` (można kilka) |
+| `POST /files/pull` | `files_create` | `{"root": "/plugins", "url": "https://…/plugin.jar"}` — węzeł pobierze plik sam |
+| `POST /files/delete` | `files_delete` | `{"root": "/", "files": ["old.log", "tmp"]}` |
+| `POST /files/compress` | `files_archive` | `{"root": "/", "files": ["world"]}` |
+| `POST /files/decompress` | `files_archive` | `{"root": "/", "file": "world.zip"}` |
+
+### Kopie zapasowe
+
+| Żądanie | Uprawnienie | Treść |
+| --- | --- | --- |
+| `GET /backups` | `backups_read` | — |
+| `POST /backups` | `backups_create` | `{"name": "przed aktualizacją", "ignored": "logs\n*.tmp", "locked": false}` — wszystkie pola opcjonalne |
+| `GET /backups/{uuid}/download` | `backups_download` | Pobierz archiwum |
+| `POST /backups/{uuid}/restore` | `backups_restore` | `{"truncate": true}` — usuń obecne pliki przed przywróceniem |
+| `POST /backups/{uuid}/lock` | `backups_lock` | Włącz lub wyłącz ochronę przed usunięciem |
+| `DELETE /backups/{uuid}` | `backups_delete` | — |
+
+### Bazy danych
+
+| Żądanie | Uprawnienie | Treść |
+| --- | --- | --- |
+| `GET /databases` | `databases_read` | Hasła widać tylko z `databases_password` |
+| `POST /databases` | `databases_create` | `{"name": "shop", "remote": "%"}` — `remote`: z jakich adresów można się łączyć, `%` — z dowolnych |
+| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.7"}` |
+| `POST /databases/{id}/rotate` | `databases_rotate` | Nowe hasło |
+| `DELETE /databases/{id}` | `databases_delete` | — |
+
+### Harmonogramy
+
+| Żądanie | Uprawnienie | Treść |
+| --- | --- | --- |
+| `GET /schedules` | `schedules_read` | — |
+| `POST /schedules` | `schedules_create` | patrz przykład niżej |
+| `PUT /schedules/{id}` | `schedules_update` | to samo co przy tworzeniu |
+| `POST /schedules/{id}/run` | `schedules_run` | Uruchom teraz |
+| `DELETE /schedules/{id}` | `schedules_delete` | — |
+| `POST /schedules/{id}/tasks` | `schedules_update` | `{"action": "command", "payload": "say Restart za minutę", "offset": 0}` |
+| `PUT /schedules/{id}/tasks/{task}` | `schedules_update` | to samo |
+| `DELETE /schedules/{id}/tasks/{task}` | `schedules_update` | — |
+
+Harmonogram:
+
+```json
+{
+  "name": "Nocny restart",
+  "cron": { "minute": "0", "hour": "4", "day_of_month": "*", "month": "*", "day_of_week": "*" },
+  "active": true,
+  "only_when_online": true
+}
+```
+
+Zadanie: `action` to `command` (polecenie do konsoli), `power` (`start`, `restart`, `stop`, `kill`) lub `backup`; `offset` — ile sekund czekać po poprzednim zadaniu.
+
+### Porty
+
+| Żądanie | Uprawnienie | Treść |
+| --- | --- | --- |
+| `GET /allocations` | `network_read` | — |
+| `POST /allocations` | `network_create` | `{"protocol": "tcp_udp"}` — `tcp`, `udp` lub `tcp_udp` |
+| `POST /allocations/{id}/primary` | `network_update` | Ustaw port jako główny |
+| `DELETE /allocations/{id}` | `network_delete` | Głównego portu nie można usunąć |
+
+### Mody, pluginy i gotowe strony
+
+| Żądanie | Uprawnienie | Co robi |
+| --- | --- | --- |
+| `GET /addons` | `addons_read` | Co jest zainstalowane i wersja gry |
+| `GET /addons/search?q=worldedit` | `addons_read` | Wyszukiwanie na Modrinth pod rdzeń serwera; `offset` — następna strona |
+| `GET /addons/versions?project=worldedit` | `addons_read` | Pasujące wersje projektu |
+| `POST /addons` | `addons_manage` | `{"version_id": "…"}` — zainstaluj wersję z Modrinth |
+| `DELETE /addons?kind=plugin&file=WorldEdit.jar` | `addons_manage` | Usuń mod lub plugin |
+| `GET /builds` | `builds_install` | Dostępne gotowe strony |
+| `POST /builds/{id}/install` | `builds_install` | Zainstaluj gotową stronę (jej folder zostanie wyczyszczony) |
+
+### Uruchamianie i ponowna instalacja
+
+| Żądanie | Uprawnienie | Treść |
+| --- | --- | --- |
+| `GET /startup` | `startup_read` | Obraz, polecenie uruchomienia i zmienne |
+| `PUT /startup` | `startup_update` | `{"image": "…", "variables": {"SERVER_JARFILE": "server.jar"}}` |
+| `POST /reinstall` | `settings_reinstall` | Zainstaluj serwer ponownie |
+
+## Konsola przez WebSocket
+
+Połącz się z `wss://ketrix.cloud/api/client/servers/{id}/ws` z tym samym nagłówkiem `Authorization`. Wymagane jest uprawnienie `console_read`.
+
+Serwer wysyła zdarzenia w formacie `{"event": "...", "args": [...]}`:
+
+- `console output` — nowa linia konsoli, `args[0]` to tekst;
+- `status` — stan serwera: `offline`, `starting`, `running`, `stopping`;
+- `stats` — obciążenie, `args[0]` to ciąg JSON z CPU, pamięcią, dyskiem i siecią.
+
+Możesz wysłać:
+
+- `{"event": "send logs"}` — wyślij historię konsoli;
+- `{"event": "send stats"}` — wyślij obecne obciążenie;
+- `{"event": "send command", "args": ["say Cześć"]}` — polecenie do konsoli (`console_command`);
+- `{"event": "set state", "args": ["restart"]}` — zasilanie (uprawnienie danego przycisku).
+
+Uprawnienia klucza są sprawdzane co minutę: jeśli klucz zostanie usunięty albo straci `console_read`, połączenie zamknie się z kodem `4403`.
+
+## Przykłady
+
+### curl
+
+```bash
+KEY="ktx_twoj_klucz"
+API="https://ketrix.cloud/api/client/servers/123"
+
+# stan serwera
+curl -s -H "Authorization: Bearer $KEY" "$API"
+
+# restart
+curl -s -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"action":"restart"}' "$API/power"
+
+# polecenie do konsoli
+curl -s -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"command":"say Serwer zrestartuje się za minutę"}' "$API/command"
+
+# wyślij plugin
+curl -s -X POST -H "Authorization: Bearer $KEY" \
+  -F "files=@MyPlugin.jar" "$API/files/upload?directory=/plugins"
+```
+
+### Python
+
+```python
+import requests
+
+KEY = "ktx_twoj_klucz"
+API = "https://ketrix.cloud/api/client/servers/123"
+session = requests.Session()
+session.headers["Authorization"] = f"Bearer {KEY}"
+
+info = session.get(API).json()
+print("Stan:", info["data"]["state"]["power"])
+
+r = session.post(f"{API}/power", json={"action": "restart"})
+if not r.json()["success"]:
+    print("Błąd:", r.json()["error"]["code"])
+
+props = session.get(f"{API}/files/contents", params={"file": "/server.properties"}).json()
+print(props["data"]["content"])
+```
+
+### Node.js
+
+```javascript
+const KEY = "ktx_twoj_klucz";
+const API = "https://ketrix.cloud/api/client/servers/123";
+const headers = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };
+
+const info = await fetch(API, { headers }).then((r) => r.json());
+console.log("Stan:", info.data.state.power);
+
+await fetch(`${API}/command`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({ command: "say Cześć z API" }),
+});
+```
+
+### Konsola w Pythonie
+
+```python
+import asyncio, json
+import websockets  # pip install websockets
+
+KEY = "ktx_twoj_klucz"
+URL = "wss://ketrix.cloud/api/client/servers/123/ws"
+
+async def main():
+    async with websockets.connect(URL, additional_headers={"Authorization": f"Bearer {KEY}"}) as ws:
+        await ws.send(json.dumps({"event": "send logs"}))
+        async for raw in ws:
+            msg = json.loads(raw)
+            if msg["event"] == "console output":
+                print(msg["args"][0])
+
+asyncio.run(main())
+```
+
+## Bezpieczeństwo
+
+- Przechowuj klucz jak hasło: nie publikuj go w kodzie, repozytoriach ani na zrzutach ekranu.
+- Dawaj kluczowi tylko potrzebne uprawnienia i, jeśli skrypt działa ze stałego adresu, ogranicz klucz do tego adresu.
+- Jeśli klucz mógł wyciec — usuń go w panelu, od razu przestanie działać. Potem utwórz nowy.
+- Wszystko, co robi klucz, trafia do **dziennika** serwera z nazwą klucza — widać, który skrypt co zrobił.
+- Przy przekazaniu serwera innemu właścicielowi wszystkie jego klucze są usuwane.
+
+Masz pytania? Napisz do nas w zgłoszeniu — pomożemy.

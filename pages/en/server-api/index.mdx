@@ -1,0 +1,332 @@
+---
+title: Server API
+description: How to drive your server from your own scripts through the ketrix.cloud API — keys, permissions, addresses and every request with examples.
+category: main
+disabledin: false
+---
+
+The server API is the control panel for your programs: a Discord bot, a monitoring dashboard, an automatic restart script or a site deploy. Everything you do by hand in the server's tabs can be done with requests.
+
+Access is given with an **API key**. A key belongs to one server, can do only what you allowed it, and, if you like, works only from the IP addresses you list.
+
+> The API is available for servers on our own nodes — game, web and dev servers. The subscription, domains, shared access and the journal cannot be managed with a key: they stay with the owner in the panel.
+
+## Creating a key
+
+1. Open the server and go to the **Settings** tab.
+2. In the **API** card, click **Create key**.
+3. Give the key a name — for example, "Monitoring" or "Discord bot".
+4. Optionally list the **allowed addresses**: IP addresses or ranges, separated by commas or new lines, up to 10. If the field is empty, the key works from any address.
+5. Tick what the key may do. Tick only what you need — for monitoring, reading the console is enough.
+6. Click **Create key** and copy it right away.
+
+> The key is shown **once**. We keep only its fingerprint and cannot show it again. If you lose it, delete it and create a new one.
+
+A server can have **up to 3 keys**. The list shows the start of each key (`ktx_ab12cd34…`), its permissions, its allowed addresses, and when and from which IP it was last used. You can change the name, permissions and addresses at any time — the key itself stays the same. A deleted key stops working at once.
+
+Only the server's owner can create, change and delete keys.
+
+## Address and authorization
+
+All requests go to:
+
+```text
+https://ketrix.cloud/api/client/servers/{id}
+```
+
+`{id}` is the service number. You can see it in the panel's address bar: in `https://ketrix.cloud/my/services/123/console` it is `123`.
+
+The key goes in the `Authorization` header:
+
+```text
+Authorization: Bearer ktx_your_key
+```
+
+Request and response bodies are JSON (except file uploads and downloads).
+
+### Response format
+
+A successful response:
+
+```json
+{ "success": true, "data": { ... }, "message": null, "meta": null }
+```
+
+An error:
+
+```json
+{ "success": false, "error": { "code": "access_denied", "details": null } }
+```
+
+`code` is a stable error code — handy to branch on in a script.
+
+### Common errors
+
+| HTTP | `code` | Meaning |
+| --- | --- | --- |
+| 401 | `api_key_invalid` | No `Authorization` header, or the key is wrong or deleted |
+| 403 | `api_key_address_denied` | The request came from an address that is not allowed |
+| 403 | `access_denied` | The key has no permission for this action |
+| 404 | `not_found` | The server was not found, or the key belongs to another server |
+| 429 | `api_rate_limited` | Too many requests — see the `Retry-After` header |
+| 409 | `server_not_ready` | The server is still being installed |
+| 403 | `service_inactive` | The subscription is not active — renew the service |
+| 502 | `node_unavailable` | The server's node did not answer, try again later |
+| 400 | `validation_failed` | Invalid request data, details in `error.details.issues` |
+
+## Limits
+
+- **120 requests per minute** per key. Above that, the API answers `429` with a `Retry-After` header — how many seconds to wait.
+- **Up to 3 keys** per server and **up to 10 addresses** per key.
+
+If you need more, do not poll the server in a loop — connect to the console over WebSocket (below) and changes come to you.
+
+## Permissions
+
+Permissions are the same as for shared access. Each action needs its own permission; without it the API answers `403 access_denied`.
+
+| Permission | What it opens |
+| --- | --- |
+| `console_read` | Reading the console and the latest log lines |
+| `console_command` | Sending console commands, clearing the console |
+| `power_start`, `power_restart`, `power_stop`, `power_kill` | Each power button separately |
+| `files_read` | Listing files and folders |
+| `files_read_content` | Reading and downloading files |
+| `files_create` | Creating folders, uploading, copying, pulling a file from a URL |
+| `files_update` | Writing files, renaming and moving, permissions |
+| `files_delete` | Deleting files |
+| `files_archive` | Archiving and extracting |
+| `databases_read` | Listing databases |
+| `databases_password` | Database passwords in responses |
+| `databases_create`, `databases_update`, `databases_rotate`, `databases_delete` | Creating a database, changing allowed addresses, a new password, deleting |
+| `backups_read`, `backups_create`, `backups_download`, `backups_restore`, `backups_lock`, `backups_delete` | Backups: list, create, download, restore, protect from deletion, delete |
+| `schedules_read`, `schedules_create`, `schedules_update`, `schedules_run`, `schedules_delete` | Schedules and their tasks |
+| `network_read`, `network_create`, `network_update`, `network_delete` | Ports: list, add, change the primary one, delete |
+| `builds_install` | Installing site builds (web plans) |
+| `addons_read`, `addons_manage` | Mods and plugins: search and view, install and remove |
+| `startup_read`, `startup_update` | Image and startup variables |
+| `settings_reinstall` | Reinstalling the server |
+
+## Requests
+
+Paths below are relative to `https://ketrix.cloud/api/client/servers/{id}`.
+
+### Server and power
+
+| Request | Permission | What it does |
+| --- | --- | --- |
+| `GET /` | — | Server details: core, limits, ports, SFTP details, state (`power`, CPU, memory, disk, network, uptime) |
+| `POST /power` | the button's permission | Power. Body: `{"action": "start"}` — `start`, `restart`, `stop` or `kill` |
+| `POST /command` | `console_command` | A console command. Body: `{"command": "say Hello"}` |
+| `GET /console/snapshot` | `console_read` | The last 100 console lines |
+| `POST /console/clear` | `console_command` | Clear the console history |
+| `GET /ws` | `console_read` | Live console (WebSocket, see below) |
+
+If a power action is not confirmed within 5 seconds, the answer is `504 power_action_timeout`: the action is most likely still running. Check the state with `GET /` before retrying.
+
+### Files
+
+File paths are relative to the server's root and start with `/`.
+
+| Request | Permission | Body or parameters |
+| --- | --- | --- |
+| `GET /files?directory=/plugins` | `files_read` | A folder's contents |
+| `GET /files/contents?file=/server.properties` | `files_read_content` | A file's text (up to 4 MB) |
+| `GET /files/download?file=/world.zip` | `files_read_content` | Download a file |
+| `POST /files/write` | `files_update` | `{"file": "/motd.txt", "content": "..."}` — creates or overwrites |
+| `PUT /files/rename` | `files_update` | `{"root": "/", "files": [{"from": "a.txt", "to": "b.txt"}]}` |
+| `POST /files/chmod` | `files_update` | `{"root": "/", "files": [{"file": "start.sh", "mode": "755"}]}` |
+| `POST /files/folder` | `files_create` | `{"root": "/", "name": "backups"}` |
+| `POST /files/copy` | `files_create` | `{"location": "/server.properties"}` |
+| `POST /files/upload?directory=/plugins` | `files_create` | `multipart/form-data`, field `files` (several allowed) |
+| `POST /files/pull` | `files_create` | `{"root": "/plugins", "url": "https://…/plugin.jar"}` — the node downloads the file itself |
+| `POST /files/delete` | `files_delete` | `{"root": "/", "files": ["old.log", "tmp"]}` |
+| `POST /files/compress` | `files_archive` | `{"root": "/", "files": ["world"]}` |
+| `POST /files/decompress` | `files_archive` | `{"root": "/", "file": "world.zip"}` |
+
+### Backups
+
+| Request | Permission | Body |
+| --- | --- | --- |
+| `GET /backups` | `backups_read` | — |
+| `POST /backups` | `backups_create` | `{"name": "before update", "ignored": "logs\n*.tmp", "locked": false}` — all fields optional |
+| `GET /backups/{uuid}/download` | `backups_download` | Download the archive |
+| `POST /backups/{uuid}/restore` | `backups_restore` | `{"truncate": true}` — delete the current files before restoring |
+| `POST /backups/{uuid}/lock` | `backups_lock` | Turn deletion protection on or off |
+| `DELETE /backups/{uuid}` | `backups_delete` | — |
+
+### Databases
+
+| Request | Permission | Body |
+| --- | --- | --- |
+| `GET /databases` | `databases_read` | Passwords only with `databases_password` |
+| `POST /databases` | `databases_create` | `{"name": "shop", "remote": "%"}` — `remote`: addresses allowed to connect, `%` — any |
+| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.7"}` |
+| `POST /databases/{id}/rotate` | `databases_rotate` | A new password |
+| `DELETE /databases/{id}` | `databases_delete` | — |
+
+### Schedules
+
+| Request | Permission | Body |
+| --- | --- | --- |
+| `GET /schedules` | `schedules_read` | — |
+| `POST /schedules` | `schedules_create` | see the example below |
+| `PUT /schedules/{id}` | `schedules_update` | the same as for creating |
+| `POST /schedules/{id}/run` | `schedules_run` | Run now |
+| `DELETE /schedules/{id}` | `schedules_delete` | — |
+| `POST /schedules/{id}/tasks` | `schedules_update` | `{"action": "command", "payload": "say Restart in a minute", "offset": 0}` |
+| `PUT /schedules/{id}/tasks/{task}` | `schedules_update` | the same |
+| `DELETE /schedules/{id}/tasks/{task}` | `schedules_update` | — |
+
+A schedule:
+
+```json
+{
+  "name": "Nightly restart",
+  "cron": { "minute": "0", "hour": "4", "day_of_month": "*", "month": "*", "day_of_week": "*" },
+  "active": true,
+  "only_when_online": true
+}
+```
+
+A task: `action` is `command` (a console command), `power` (`start`, `restart`, `stop`, `kill`) or `backup`; `offset` is how many seconds to wait after the previous task.
+
+### Ports
+
+| Request | Permission | Body |
+| --- | --- | --- |
+| `GET /allocations` | `network_read` | — |
+| `POST /allocations` | `network_create` | `{"protocol": "tcp_udp"}` — `tcp`, `udp` or `tcp_udp` |
+| `POST /allocations/{id}/primary` | `network_update` | Make the port primary |
+| `DELETE /allocations/{id}` | `network_delete` | The primary port cannot be deleted |
+
+### Mods, plugins and builds
+
+| Request | Permission | What it does |
+| --- | --- | --- |
+| `GET /addons` | `addons_read` | What is installed and the game version |
+| `GET /addons/search?q=worldedit` | `addons_read` | Search Modrinth for the server's core; `offset` for the next page |
+| `GET /addons/versions?project=worldedit` | `addons_read` | A project's fitting versions |
+| `POST /addons` | `addons_manage` | `{"version_id": "…"}` — install a version from Modrinth |
+| `DELETE /addons?kind=plugin&file=WorldEdit.jar` | `addons_manage` | Remove a mod or plugin |
+| `GET /builds` | `builds_install` | Available site builds |
+| `POST /builds/{id}/install` | `builds_install` | Install a build (the build's folder is cleared) |
+
+### Startup and reinstall
+
+| Request | Permission | Body |
+| --- | --- | --- |
+| `GET /startup` | `startup_read` | Image, startup command and variables |
+| `PUT /startup` | `startup_update` | `{"image": "…", "variables": {"SERVER_JARFILE": "server.jar"}}` |
+| `POST /reinstall` | `settings_reinstall` | Reinstall the server |
+
+## Console over WebSocket
+
+Connect to `wss://ketrix.cloud/api/client/servers/{id}/ws` with the same `Authorization` header. The `console_read` permission is required.
+
+The server sends events as `{"event": "...", "args": [...]}`:
+
+- `console output` — a new console line, `args[0]` is the text;
+- `status` — the server's state: `offline`, `starting`, `running`, `stopping`;
+- `stats` — usage, `args[0]` is a JSON string with CPU, memory, disk and network.
+
+You can send:
+
+- `{"event": "send logs"}` — send the console history;
+- `{"event": "send stats"}` — send the current usage;
+- `{"event": "send command", "args": ["say Hello"]}` — a console command (`console_command`);
+- `{"event": "set state", "args": ["restart"]}` — power (the matching button's permission).
+
+The key's permissions are rechecked every minute: if the key is deleted or loses `console_read`, the connection closes with code `4403`.
+
+## Examples
+
+### curl
+
+```bash
+KEY="ktx_your_key"
+API="https://ketrix.cloud/api/client/servers/123"
+
+# server state
+curl -s -H "Authorization: Bearer $KEY" "$API"
+
+# restart
+curl -s -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"action":"restart"}' "$API/power"
+
+# a console command
+curl -s -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"command":"say The server restarts in a minute"}' "$API/command"
+
+# upload a plugin
+curl -s -X POST -H "Authorization: Bearer $KEY" \
+  -F "files=@MyPlugin.jar" "$API/files/upload?directory=/plugins"
+```
+
+### Python
+
+```python
+import requests
+
+KEY = "ktx_your_key"
+API = "https://ketrix.cloud/api/client/servers/123"
+session = requests.Session()
+session.headers["Authorization"] = f"Bearer {KEY}"
+
+info = session.get(API).json()
+print("State:", info["data"]["state"]["power"])
+
+r = session.post(f"{API}/power", json={"action": "restart"})
+if not r.json()["success"]:
+    print("Error:", r.json()["error"]["code"])
+
+props = session.get(f"{API}/files/contents", params={"file": "/server.properties"}).json()
+print(props["data"]["content"])
+```
+
+### Node.js
+
+```javascript
+const KEY = "ktx_your_key";
+const API = "https://ketrix.cloud/api/client/servers/123";
+const headers = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };
+
+const info = await fetch(API, { headers }).then((r) => r.json());
+console.log("State:", info.data.state.power);
+
+await fetch(`${API}/command`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({ command: "say Hello from the API" }),
+});
+```
+
+### Console in Python
+
+```python
+import asyncio, json
+import websockets  # pip install websockets
+
+KEY = "ktx_your_key"
+URL = "wss://ketrix.cloud/api/client/servers/123/ws"
+
+async def main():
+    async with websockets.connect(URL, additional_headers={"Authorization": f"Bearer {KEY}"}) as ws:
+        await ws.send(json.dumps({"event": "send logs"}))
+        async for raw in ws:
+            msg = json.loads(raw)
+            if msg["event"] == "console output":
+                print(msg["args"][0])
+
+asyncio.run(main())
+```
+
+## Security
+
+- Keep the key like a password: do not publish it in code, repositories or screenshots.
+- Give the key only the permissions it needs and, if your script runs from a fixed address, limit the key to that address.
+- If the key may have leaked, delete it in the panel — it stops working at once. Then create a new one.
+- Everything done with a key goes into the server's **journal** under the key's name, so you can see which script did what.
+- When the server is transferred to another owner, all its keys are deleted.
+
+Questions left? Write to us in a ticket and we will help.

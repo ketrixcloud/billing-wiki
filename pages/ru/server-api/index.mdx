@@ -1,0 +1,332 @@
+---
+title: API сервера
+description: Как управлять сервером из своих скриптов через API ketrix.cloud — ключи, права, адреса и все запросы с примерами.
+category: main
+disabledin: false
+---
+
+API сервера — это то же, что панель управления, но для ваших программ: бота в Discord, панели мониторинга, скрипта автоматического рестарта или деплоя сайта. Всё, что вы делаете руками во вкладках сервера, можно делать запросами.
+
+Доступ выдаётся **API-ключом**. Ключ привязан к одному серверу, может только то, что вы ему разрешили, и при желании работает только с указанных IP-адресов.
+
+> API доступен для серверов на наших нодах — игровых, веб- и дев-серверов. Управлять подпиской, доменами, совместным доступом и журналом через ключ нельзя: это остаётся за владельцем в панели.
+
+## Как создать ключ
+
+1. Откройте сервер и перейдите на вкладку **Настройки**.
+2. В блоке **API** нажмите **Создать ключ**.
+3. Дайте ключу название — например, «Мониторинг» или «Бот Discord».
+4. При желании укажите **разрешённые адреса**: IP-адреса или подсети через запятую или с новой строки, до 10 штук. Если поле пустое, ключ работает с любого адреса.
+5. Отметьте, что ключ может делать. Отметьте только нужное — например, для мониторинга достаточно просмотра консоли.
+6. Нажмите **Создать ключ** и сразу скопируйте его.
+
+> Ключ показывается **один раз**. Мы храним только его отпечаток и не можем показать его снова. Если ключ потерялся — удалите его и создайте новый.
+
+На одном сервере может быть **до 3 ключей**. В списке видно начало каждого ключа (`ktx_ab12cd34…`), его права, разрешённые адреса, когда и с какого IP им пользовались последний раз. Права, адреса и название можно менять в любой момент — сам ключ при этом не меняется. Удалённый ключ перестаёт работать сразу.
+
+Создавать, менять и удалять ключи может только владелец сервера.
+
+## Адрес и авторизация
+
+Все запросы идут на адрес:
+
+```text
+https://ketrix.cloud/api/client/servers/{id}
+```
+
+`{id}` — номер услуги. Он есть в адресной строке панели: в `https://ketrix.cloud/my/services/123/console` это `123`.
+
+Ключ передаётся в заголовке `Authorization`:
+
+```text
+Authorization: Bearer ktx_ваш_ключ
+```
+
+Тело запросов и ответов — JSON (кроме загрузки и скачивания файлов).
+
+### Формат ответа
+
+Успешный ответ:
+
+```json
+{ "success": true, "data": { ... }, "message": null, "meta": null }
+```
+
+Ошибка:
+
+```json
+{ "success": false, "error": { "code": "access_denied", "details": null } }
+```
+
+`code` — стабильный код ошибки, по нему удобно ветвить логику в скрипте.
+
+### Частые ошибки
+
+| HTTP | `code` | Что значит |
+| --- | --- | --- |
+| 401 | `api_key_invalid` | Нет заголовка `Authorization`, ключ неверный или удалён |
+| 403 | `api_key_address_denied` | Запрос пришёл с адреса, которого нет в разрешённых |
+| 403 | `access_denied` | У ключа нет права на это действие |
+| 404 | `not_found` | Сервер не найден или ключ от другого сервера |
+| 429 | `api_rate_limited` | Слишком много запросов — смотрите заголовок `Retry-After` |
+| 409 | `server_not_ready` | Сервер ещё устанавливается |
+| 403 | `service_inactive` | Подписка не активна — продлите услугу |
+| 502 | `node_unavailable` | Нода сервера не ответила, повторите позже |
+| 400 | `validation_failed` | Неверные данные в запросе, подробности в `error.details.issues` |
+
+## Лимиты
+
+- **120 запросов в минуту** на один ключ. При превышении API отвечает `429` с заголовком `Retry-After` — через сколько секунд можно продолжить.
+- **До 3 ключей** на сервер и **до 10 адресов** на ключ.
+
+Если вам нужно чаще — не опрашивайте сервер в цикле, а подключитесь к консоли по WebSocket (ниже): изменения придут сами.
+
+## Права
+
+Права те же, что у совместного доступа. Каждое действие требует своего права; без него API ответит `403 access_denied`.
+
+| Право | Что открывает |
+| --- | --- |
+| `console_read` | Просмотр консоли и последних строк лога |
+| `console_command` | Отправка команд в консоль, очистка консоли |
+| `power_start`, `power_restart`, `power_stop`, `power_kill` | Каждая кнопка питания отдельно |
+| `files_read` | Список файлов и папок |
+| `files_read_content` | Чтение и скачивание файлов |
+| `files_create` | Создание папок, загрузка, копирование, скачивание файла по ссылке |
+| `files_update` | Запись в файлы, переименование и перемещение, права доступа |
+| `files_delete` | Удаление файлов |
+| `files_archive` | Архивация и распаковка |
+| `databases_read` | Список баз данных |
+| `databases_password` | Пароли баз в ответах |
+| `databases_create`, `databases_update`, `databases_rotate`, `databases_delete` | Создание базы, смена разрешённых адресов, новый пароль, удаление |
+| `backups_read`, `backups_create`, `backups_download`, `backups_restore`, `backups_lock`, `backups_delete` | Бэкапы: список, создание, скачивание, восстановление, защита от удаления, удаление |
+| `schedules_read`, `schedules_create`, `schedules_update`, `schedules_run`, `schedules_delete` | Расписания и их задачи |
+| `network_read`, `network_create`, `network_update`, `network_delete` | Порты: список, новый порт, смена основного, удаление |
+| `builds_install` | Установка сборок сайтов (веб-тарифы) |
+| `addons_read`, `addons_manage` | Моды и плагины: поиск и просмотр, установка и удаление |
+| `startup_read`, `startup_update` | Образ и переменные запуска |
+| `settings_reinstall` | Переустановка сервера |
+
+## Запросы
+
+Пути ниже — от адреса `https://ketrix.cloud/api/client/servers/{id}`.
+
+### Сервер и питание
+
+| Запрос | Право | Что делает |
+| --- | --- | --- |
+| `GET /` | — | Сведения о сервере: ядро, лимиты, порты, данные SFTP, состояние (`power`, CPU, память, диск, сеть, аптайм) |
+| `POST /power` | право нужной кнопки | Питание. Тело: `{"action": "start"}` — `start`, `restart`, `stop` или `kill` |
+| `POST /command` | `console_command` | Команда в консоль. Тело: `{"command": "say Привет"}` |
+| `GET /console/snapshot` | `console_read` | Последние 100 строк консоли |
+| `POST /console/clear` | `console_command` | Очистить историю консоли |
+| `GET /ws` | `console_read` | Консоль в реальном времени (WebSocket, см. ниже) |
+
+Если питание не подтвердилось за 5 секунд, ответ — `504 power_action_timeout`: команда, скорее всего, ещё выполняется. Проверьте состояние через `GET /`, прежде чем повторять.
+
+### Файлы
+
+Пути к файлам — от корня сервера и начинаются с `/`.
+
+| Запрос | Право | Тело или параметры |
+| --- | --- | --- |
+| `GET /files?directory=/plugins` | `files_read` | Содержимое папки |
+| `GET /files/contents?file=/server.properties` | `files_read_content` | Текст файла (до 4 МБ) |
+| `GET /files/download?file=/world.zip` | `files_read_content` | Скачать файл |
+| `POST /files/write` | `files_update` | `{"file": "/motd.txt", "content": "..."}` — создаёт или перезаписывает |
+| `PUT /files/rename` | `files_update` | `{"root": "/", "files": [{"from": "a.txt", "to": "b.txt"}]}` |
+| `POST /files/chmod` | `files_update` | `{"root": "/", "files": [{"file": "start.sh", "mode": "755"}]}` |
+| `POST /files/folder` | `files_create` | `{"root": "/", "name": "backups"}` |
+| `POST /files/copy` | `files_create` | `{"location": "/server.properties"}` |
+| `POST /files/upload?directory=/plugins` | `files_create` | `multipart/form-data`, поле `files` (можно несколько) |
+| `POST /files/pull` | `files_create` | `{"root": "/plugins", "url": "https://…/plugin.jar"}` — нода скачает файл сама |
+| `POST /files/delete` | `files_delete` | `{"root": "/", "files": ["old.log", "tmp"]}` |
+| `POST /files/compress` | `files_archive` | `{"root": "/", "files": ["world"]}` |
+| `POST /files/decompress` | `files_archive` | `{"root": "/", "file": "world.zip"}` |
+
+### Бэкапы
+
+| Запрос | Право | Тело |
+| --- | --- | --- |
+| `GET /backups` | `backups_read` | — |
+| `POST /backups` | `backups_create` | `{"name": "перед обновлением", "ignored": "logs\n*.tmp", "locked": false}` — все поля необязательны |
+| `GET /backups/{uuid}/download` | `backups_download` | Скачать архив |
+| `POST /backups/{uuid}/restore` | `backups_restore` | `{"truncate": true}` — удалить текущие файлы перед восстановлением |
+| `POST /backups/{uuid}/lock` | `backups_lock` | Включить или снять защиту от удаления |
+| `DELETE /backups/{uuid}` | `backups_delete` | — |
+
+### Базы данных
+
+| Запрос | Право | Тело |
+| --- | --- | --- |
+| `GET /databases` | `databases_read` | Пароли видны только с `databases_password` |
+| `POST /databases` | `databases_create` | `{"name": "shop", "remote": "%"}` — `remote`: с каких адресов можно подключаться, `%` — с любых |
+| `PATCH /databases/{id}` | `databases_update` | `{"remote": "203.0.113.7"}` |
+| `POST /databases/{id}/rotate` | `databases_rotate` | Новый пароль |
+| `DELETE /databases/{id}` | `databases_delete` | — |
+
+### Расписания
+
+| Запрос | Право | Тело |
+| --- | --- | --- |
+| `GET /schedules` | `schedules_read` | — |
+| `POST /schedules` | `schedules_create` | см. пример ниже |
+| `PUT /schedules/{id}` | `schedules_update` | то же, что при создании |
+| `POST /schedules/{id}/run` | `schedules_run` | Запустить сейчас |
+| `DELETE /schedules/{id}` | `schedules_delete` | — |
+| `POST /schedules/{id}/tasks` | `schedules_update` | `{"action": "command", "payload": "say Рестарт через минуту", "offset": 0}` |
+| `PUT /schedules/{id}/tasks/{task}` | `schedules_update` | то же |
+| `DELETE /schedules/{id}/tasks/{task}` | `schedules_update` | — |
+
+Расписание:
+
+```json
+{
+  "name": "Ночной рестарт",
+  "cron": { "minute": "0", "hour": "4", "day_of_month": "*", "month": "*", "day_of_week": "*" },
+  "active": true,
+  "only_when_online": true
+}
+```
+
+Задача: `action` — `command` (команда в консоль), `power` (`start`, `restart`, `stop`, `kill`) или `backup`; `offset` — сколько секунд ждать после предыдущей задачи.
+
+### Порты
+
+| Запрос | Право | Тело |
+| --- | --- | --- |
+| `GET /allocations` | `network_read` | — |
+| `POST /allocations` | `network_create` | `{"protocol": "tcp_udp"}` — `tcp`, `udp` или `tcp_udp` |
+| `POST /allocations/{id}/primary` | `network_update` | Сделать порт основным |
+| `DELETE /allocations/{id}` | `network_delete` | Основной порт удалить нельзя |
+
+### Моды, плагины и сборки
+
+| Запрос | Право | Что делает |
+| --- | --- | --- |
+| `GET /addons` | `addons_read` | Что установлено и версия игры |
+| `GET /addons/search?q=worldedit` | `addons_read` | Поиск на Modrinth под ядро сервера; `offset` — для следующей страницы |
+| `GET /addons/versions?project=worldedit` | `addons_read` | Подходящие версии проекта |
+| `POST /addons` | `addons_manage` | `{"version_id": "…"}` — установить версию с Modrinth |
+| `DELETE /addons?kind=plugin&file=WorldEdit.jar` | `addons_manage` | Удалить мод или плагин |
+| `GET /builds` | `builds_install` | Доступные сборки сайтов |
+| `POST /builds/{id}/install` | `builds_install` | Установить сборку (папка сборки очищается) |
+
+### Запуск и переустановка
+
+| Запрос | Право | Тело |
+| --- | --- | --- |
+| `GET /startup` | `startup_read` | Образ, команда запуска и переменные |
+| `PUT /startup` | `startup_update` | `{"image": "…", "variables": {"SERVER_JARFILE": "server.jar"}}` |
+| `POST /reinstall` | `settings_reinstall` | Переустановить сервер |
+
+## Консоль через WebSocket
+
+Подключитесь к `wss://ketrix.cloud/api/client/servers/{id}/ws` с тем же заголовком `Authorization`. Нужно право `console_read`.
+
+Сервер присылает события в формате `{"event": "...", "args": [...]}`:
+
+- `console output` — новая строка консоли, `args[0]` — текст;
+- `status` — состояние сервера: `offline`, `starting`, `running`, `stopping`;
+- `stats` — нагрузка, `args[0]` — JSON-строка с CPU, памятью, диском и сетью.
+
+Вы можете отправить:
+
+- `{"event": "send logs"}` — прислать историю консоли;
+- `{"event": "send stats"}` — прислать нагрузку сейчас;
+- `{"event": "send command", "args": ["say Привет"]}` — команда в консоль (право `console_command`);
+- `{"event": "set state", "args": ["restart"]}` — питание (право соответствующей кнопки).
+
+Права ключа перепроверяются раз в минуту: если ключ удалили или забрали `console_read`, соединение закроется с кодом `4403`.
+
+## Примеры
+
+### curl
+
+```bash
+KEY="ktx_ваш_ключ"
+API="https://ketrix.cloud/api/client/servers/123"
+
+# состояние сервера
+curl -s -H "Authorization: Bearer $KEY" "$API"
+
+# перезапуск
+curl -s -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"action":"restart"}' "$API/power"
+
+# команда в консоль
+curl -s -X POST -H "Authorization: Bearer $KEY" -H "Content-Type: application/json" \
+  -d '{"command":"say Сервер перезапустится через минуту"}' "$API/command"
+
+# загрузить плагин
+curl -s -X POST -H "Authorization: Bearer $KEY" \
+  -F "files=@MyPlugin.jar" "$API/files/upload?directory=/plugins"
+```
+
+### Python
+
+```python
+import requests
+
+KEY = "ktx_ваш_ключ"
+API = "https://ketrix.cloud/api/client/servers/123"
+session = requests.Session()
+session.headers["Authorization"] = f"Bearer {KEY}"
+
+info = session.get(API).json()
+print("Состояние:", info["data"]["state"]["power"])
+
+r = session.post(f"{API}/power", json={"action": "restart"})
+if not r.json()["success"]:
+    print("Ошибка:", r.json()["error"]["code"])
+
+props = session.get(f"{API}/files/contents", params={"file": "/server.properties"}).json()
+print(props["data"]["content"])
+```
+
+### Node.js
+
+```javascript
+const KEY = "ktx_ваш_ключ";
+const API = "https://ketrix.cloud/api/client/servers/123";
+const headers = { Authorization: `Bearer ${KEY}`, "Content-Type": "application/json" };
+
+const info = await fetch(API, { headers }).then((r) => r.json());
+console.log("Состояние:", info.data.state.power);
+
+await fetch(`${API}/command`, {
+  method: "POST",
+  headers,
+  body: JSON.stringify({ command: "say Привет из API" }),
+});
+```
+
+### Консоль на Python
+
+```python
+import asyncio, json
+import websockets  # pip install websockets
+
+KEY = "ktx_ваш_ключ"
+URL = "wss://ketrix.cloud/api/client/servers/123/ws"
+
+async def main():
+    async with websockets.connect(URL, additional_headers={"Authorization": f"Bearer {KEY}"}) as ws:
+        await ws.send(json.dumps({"event": "send logs"}))
+        async for raw in ws:
+            msg = json.loads(raw)
+            if msg["event"] == "console output":
+                print(msg["args"][0])
+
+asyncio.run(main())
+```
+
+## Безопасность
+
+- Храните ключ как пароль: не публикуйте его в коде, репозиториях и скриншотах.
+- Давайте ключу только нужные права и, если скрипт работает с постоянного адреса, ограничьте ключ этим адресом.
+- Если ключ мог утечь — удалите его в панели, он перестанет работать сразу. Затем создайте новый.
+- Всё, что делается ключом, попадает в **журнал** сервера с названием ключа — видно, какой скрипт что сделал.
+- При передаче сервера другому владельцу все его ключи удаляются.
+
+Остались вопросы — напишите нам в тикет, поможем.
